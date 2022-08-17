@@ -1,0 +1,155 @@
+.ques-section {
+  padding: 1rem 3rem;
+  transition: all 1s;
+  display: flex;
+}
+
+.rounds {
+  width: 5rem;
+  height: 5rem;
+  background-color: #979797;
+  z-index: -9;
+  position: absolute;
+  top: 0rem;
+  right: 0px;
+  transform: translate(0%, -100%);
+  -webkit-clip-path: polygon(
+    polygon(2.1rem 6rem, 7rem 5rem, 6rem 2.2rem, 16.6rem -16.9rem)
+  );
+  clip-path: polygon(2.1rem 6rem, 7rem 5rem, 6rem 2.2rem, 16.6rem -16.9rem);
+}
+.rounds div {
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  border-radius: 0 0 50% 0;
+}
+
+.ques-item {
+  position: relative;
+  z-index: 9999;
+  border-radius: 1.5rem;
+  background-color: #d9d9d9;
+  width: 26rem;
+  height: 5rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  transition: all 1s;
+}
+.ques-item span:nth-of-type(1) {
+  width: 10%;
+  display: flex;
+  justify-content: center;
+  margin-right: 1rem;
+}
+.ques-item span:nth-of-type(2) {
+  width: 60%;
+  display: flex;
+  justify-content: center;
+}
+.ques-item button {
+  width: 20%;
+  display: flex;
+  justify-content: flex-start;
+  color: inherit;
+}
+.opened {
+  background-color: #979797;
+  width: 28rem;
+  border-radius: 1.5rem 0 0 1.5rem;
+  color: white;
+}
+.opened::after {
+  content: "";
+  background: url("../../shared/assets/Screenshot_2022-08-16_165027-removebg-preview\ \(1\).png")
+    no-repeat;
+  background-size: 2.57rem 8.6rem;
+  width: 2.57rem;
+  height: 8.6rem;
+  transform: translate(43%, -1%);
+  transition: all 1.5s;
+}
+
+.ques-details {
+  background-color: #979797;
+  height: auto;
+  width: 100%;
+  margin-bottom: 1rem;
+  border-radius: 1.7rem;
+  padding: 1.5rem 2rem;
+  color: white;
+}
+
+.sub-pending-sec {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.sub-pending-sec .before-submit,
+.sub-pending-sec form {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.sol-textarea {
+  width: 100%;
+  padding: 1rem;
+  display: block;
+  border-radius: 1.5rem;
+  border: none;
+  resize: none;
+  flex: 1 1 auto;
+}
+
+.ques-details button {
+  background-color: white;
+  border: none;
+  border-radius: 1.2rem;
+  padding: 1rem;
+  font-size: 1.2rem;
+  align-self: flex-start;
+  margin-top: 1rem;
+}
+.after-sub {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  font-size: 1.3rem;
+}
+
+.completed {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.button-flex {
+  display: flex;
+  justify-content: space-around;
+}
+.white-area {
+  flex: 1 1 auto;
+  border-radius: 1.5rem;
+  width: 100%;
+  padding: 1rem;
+  background-color: #fff;
+  color: #979797;
+  text-align: center;
+}
+.flex-column {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.up-border {
+  border-radius: 0 1.7rem 1.7rem 1.7rem !important;
+}
+.down-border {
+  border-radius: 1.7rem 1.7rem 1.7rem 0;
+}
