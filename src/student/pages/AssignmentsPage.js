@@ -61,12 +61,75 @@ const AssignmestsPage = () => {
         },
       ],
     },
+    {
+      _id: "62e21ad8ef8ce43dd",
+      subject_id: "1",
+      questions: [
+        {
+          question_no: "1",
+          question: "WAP completed",
+          points: "1",
+          instructions: "ABC",
+          status: "completed",
+          submissions: [
+            {
+              attempt: "1",
+              link: ["abc.com"],
+              filename: ["abc"],
+            },
+          ],
+          review: [{ attempt: "1", feedback: "abcd efgh" }],
+        },
+        {
+          question_no: "2",
+          question: "WAP completed",
+          points: "1",
+          instructions: "ABC",
+          status: "completed",
+          submissions: [
+            {
+              attempt: "1",
+              link: ["abc.com"],
+              filename: ["abc"],
+            },
+          ],
+          review: [{ attempt: "1", feedback: "abcd efgh" }],
+        },
+      ],
+    },
+    {
+      _id: "62e21ad8e",
+      subject_id: "1",
+      questions: [
+        {
+          question_no: "1",
+          question: "WAP pending",
+          points: "3",
+          instructions: "ABC",
+          status: "pending",
+        },
+        {
+          question_no: "2",
+          question: "WAP pending",
+          points: "3",
+          instructions: "ABC",
+          status: "pending",
+        },
+        {
+          question_no: "3",
+          question: "WAP pending",
+          points: "3",
+          instructions: "ABC",
+          status: "pending",
+        },
+      ],
+    },
   ];
 
   const [isLoading, setLoading] = useState(true);
 
   function fakeRequest() {
-    return new Promise((resolve) => setTimeout(() => resolve(), 2500));
+    return new Promise((resolve) => setTimeout(() => resolve(), 1000));
   }
 
   useEffect(() => {

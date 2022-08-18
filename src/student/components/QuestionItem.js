@@ -17,10 +17,10 @@ const QuestionSection = (props) => {
     }
   }, [props.opened, question.question_no]);
 
-  console.log("rendered QuestionItems" + question.question_no);
+  // console.log("rendered QuestionItems" + question.question_no);
 
   function changeView() {
-    navigate(`/question/${question.question_no}`, { state: true });
+    // navigate(`/question/${question.question_no}`, { state: true });
     if (props.opened === question.question_no) setView("viewing");
     else setView("open");
     props.onOpen(question.question_no);
@@ -35,11 +35,7 @@ const QuestionSection = (props) => {
   return (
     <div>
       <div className={`ques-item ${view === "viewing" ? "opened" : ""}`}>
-        {/* {view === "viewing" && (
-          <div className="rounds">
-            <div></div>
-          </div>
-        )} */}
+        {/* {view === "viewing" && (<div className="rounds"><div></div></div>)} */}
         <span>Q{question.question_no}</span>
         <span>{status}</span>
         {/* <Link to={`/question/${question.question_no}`}> */}

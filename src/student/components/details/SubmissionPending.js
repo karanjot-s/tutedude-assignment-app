@@ -9,8 +9,6 @@ const SubmissionPending = (props) => {
   //
 
   useEffect(() => {
-    const viewPrev = question.status;
-    console.log(viewPrev);
     setSolution("");
     setSubmit(false);
   }, [props.question]);
@@ -39,6 +37,9 @@ const SubmissionPending = (props) => {
               <h3>Instructions</h3>
               <p>{question.instructions}</p>
             </div>
+          )}
+          {question.status === "completed" && (
+            <button>View Previous Solution</button>
           )}
           <form onSubmit={submitHandler}>
             <label htmlFor="solution">

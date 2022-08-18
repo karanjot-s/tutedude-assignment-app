@@ -46,12 +46,12 @@ const QuestionSection = (props) => {
           />
         ))}
       </div>
-      {/* <QuesDetails
+      <QuesDetails
         QuestionOpened={quesOpened}
         questions={questions}
-        
-      /> */}
-      <Routes>
+        lastQues={questions.length}
+      />
+      {/* <Routes>
         <Route
           path="/question/:qNo"
           element={
@@ -62,7 +62,7 @@ const QuestionSection = (props) => {
             />
           }
         />
-      </Routes>
+      </Routes> */}
     </div>
   );
 };

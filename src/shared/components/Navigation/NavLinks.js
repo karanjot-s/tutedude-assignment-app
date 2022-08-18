@@ -1,15 +1,20 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { useParams } from "react-router-dom";
+import { Route, Link, Routes, useLocation } from "react-router-dom";
 
 import "./NavLinks.css";
 
 const NavLinks = (props) => {
-  const { qNo } = useParams();
+  const location = useLocation();
+
+  // console.log("hash", location.hash);
+  // console.log("pathname", location.pathname);
+  // console.log("search", location.search);
+
   return (
     <ul className="nav-links">
       <li>
-        <NavLink to={`/question/${qNo}`}>My Assignments</NavLink>
+        <NavLink to={`/`}>My Assignments</NavLink>
       </li>
       <li>
         <NavLink to="/mentor">Chat with Mentor</NavLink>
