@@ -23,49 +23,49 @@ const SubmissionPending = (props) => {
   }
 
   function changeToSubPending(event) {
-    setResubmit(true);
+    props.reSubmit(true);
   }
 
   return (
     <React.Fragment>
-      {!resubmit && (
-        <div className="sub-pending-sec">
-          <h3>Question</h3>
-          <p>{question.question}</p>
-          {question.instructions && (
-            <div>
-              <h3>Instructions</h3>
-              <p>{question.instructions}</p>
-            </div>
-          )}
-
-          {view === "View Your Solution" && (
-            <div className="flex-column">
-              <h3>Solution You Submitted</h3>
-              <div className="white-area">Solution</div>
-            </div>
-          )}
-          {view === "Mentor's Feedback" && (
-            <div className="flex-column">
-              <h3>Mentor's Feedback</h3>
-              <div className="white-area">asdfghjk</div>
-            </div>
-          )}
-
-          <div className="button-flex">
-            <button onClick={changeButton}>
-              {" "}
-              {view === "Mentor's Feedback"
-                ? "View Your Solution"
-                : "Mentor's Feedback"}
-            </button>
-            <button onClick={changeToSubPending}>Re-submit</button>
+      {/* {!resubmit && ( */}
+      <div className="sub-pending-sec">
+        <h3>Question</h3>
+        <p>{question.question}</p>
+        {question.instructions && (
+          <div>
+            <h3>Instructions</h3>
+            <p>{question.instructions}</p>
           </div>
+        )}
+
+        {view === "View Your Solution" && (
+          <div className="flex-column">
+            <h3>Solution You Submitted</h3>
+            <div className="white-area">Solution</div>
+          </div>
+        )}
+        {view === "Mentor's Feedback" && (
+          <div className="flex-column">
+            <h3>Mentor's Feedback</h3>
+            <div className="white-area">asdfghjk</div>
+          </div>
+        )}
+
+        <div className="button-flex">
+          <button onClick={changeButton}>
+            {" "}
+            {view === "Mentor's Feedback"
+              ? "View Your Solution"
+              : "Mentor's Feedback"}
+          </button>
+          <button onClick={changeToSubPending}>Re-submit</button>
         </div>
-      )}
-      {resubmit && (
+      </div>
+      {/* )} */}
+      {/* {resubmit && (
         <SubmissionPending question={question} showPrevSolution={true} />
-      )}
+      )} */}
     </React.Fragment>
   );
 };

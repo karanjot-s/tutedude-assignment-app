@@ -1,15 +1,20 @@
 import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+
 import "./AssignmentItem.css";
 
 import QuestionSection from "./QuestionSection";
 
 const AssignmentItem = (props) => {
+  const navigate = useNavigate();
+
   const assignment = props.assignment;
 
   const [action, setAction] = useState("open");
   function changeAction() {
     if (action === "close") setAction("open");
     else setAction("close");
+    navigate(`/question/1`, { state: true });
   }
   const percent =
     (assignment.progress * 100) / assignment.questions.length + "%";

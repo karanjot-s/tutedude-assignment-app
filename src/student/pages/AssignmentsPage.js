@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import AssignmentList from "../components/AssignmentList";
 import "./AssignmentPage.css";
 
@@ -62,6 +62,21 @@ const AssignmestsPage = () => {
       ],
     },
   ];
+
+  const [isLoading, setLoading] = useState(true);
+
+  function fakeRequest() {
+    return new Promise((resolve) => setTimeout(() => resolve(), 2500));
+  }
+
+  useEffect(() => {
+    fakeRequest().then(() => {
+      const el = document.querySelector(".loader-container");
+      if (el) {
+        setLoading(!isLoading);
+      }
+    });
+  }, []);
 
   // {
   //   no: 1,
@@ -146,18 +161,26 @@ const AssignmestsPage = () => {
   //     },
   //   ],
   // }
-
+  console.log("ass page rendered");
   return (
-    <div className="Assignments">
-      <h1>Course Name</h1>
-      <div className="Assignment-head">
-        <span>Sr. No.</span>
-        <span>Assignments</span>
-        <span>Status</span>
-        <span>Progress</span>
-        <span>Action</span>
-      </div>
-      <AssignmentList assignments={assignments} />
+    <div>
+      {isLoading ? (
+        <div className="loader-container">
+          <div className="loader"></div>
+        </div>
+      ) : (
+        <div className="Assignments">
+          <h1>Course Name</h1>
+          <div className="Assignment-head">
+            <span>Sr. No.</span>
+            <span>Assignments</span>
+            <span>Status</span>
+            <span>Progress</span>
+            <span>Action</span>
+          </div>
+          <AssignmentList assignments={assignments} />
+        </div>
+      )}
     </div>
   );
 };

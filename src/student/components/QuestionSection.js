@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-// import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import QuestionItem from "./QuestionItem";
 import QuesDetails from "./QuesDetails";
@@ -46,25 +46,23 @@ const QuestionSection = (props) => {
           />
         ))}
       </div>
-      <QuesDetails
+      {/* <QuesDetails
         QuestionOpened={quesOpened}
         questions={questions}
-        lastQues={questions.length}
-      />
-      {/* <Routes>
+        
+      /> */}
+      <Routes>
         <Route
-          path="/question/"
+          path="/question/:qNo"
           element={
-            <QuesDetails QuestionOpened={quesOpened} questions={questions} />
+            <QuesDetails
+              QuestionOpened={quesOpened}
+              questions={questions}
+              lastQues={questions.length}
+            />
           }
         />
-        <Route
-          path="/question2"
-          element={
-            <QuesDetails QuestionOpened={quesOpened} questions={questions} />
-          }
-        />
-      </Routes> */}
+      </Routes>
     </div>
   );
 };

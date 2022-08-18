@@ -2,9 +2,10 @@
   padding: 1rem 3rem;
   transition: all 1s;
   display: flex;
+  gap: 2rem;
 }
 
-.rounds {
+/* .rounds {
   width: 5rem;
   height: 5rem;
   background-color: #979797;
@@ -23,7 +24,7 @@
   height: 100%;
   background-color: #fff;
   border-radius: 0 0 50% 0;
-}
+} */
 
 .ques-item {
   position: relative;
@@ -36,7 +37,7 @@
   display: flex;
   align-items: center;
   padding: 1rem;
-  transition: all 1s;
+  transition: all 0.5s;
 }
 .ques-item span:nth-of-type(1) {
   width: 10%;
@@ -57,7 +58,7 @@
 }
 .opened {
   background-color: #979797;
-  width: 28rem;
+  /* width: 28rem; */
   border-radius: 1.5rem 0 0 1.5rem;
   color: white;
 }
@@ -68,7 +69,7 @@
   background-size: 2.57rem 8.6rem;
   width: 2.57rem;
   height: 8.6rem;
-  transform: translate(43%, -1%);
+  transform: translate(125%, -1%);
   transition: all 1.5s;
 }
 
@@ -80,6 +81,29 @@
   border-radius: 1.7rem;
   padding: 1.5rem 2rem;
   color: white;
+  position: relative;
+}
+.ques-details::before {
+  content: "";
+  position: absolute;
+  width: 5rem;
+  height: 2rem;
+  top: 0;
+  left: 0;
+  background-color: #fff;
+  transform: translate(-50%, -100%);
+  z-index: 99999;
+}
+.ques-details::after {
+  content: "";
+  position: absolute;
+  width: 5rem;
+  height: 2rem;
+  bottom: 0;
+  left: 0;
+  background-color: #fff;
+  transform: translate(-50%, 100%);
+  z-index: 99999;
 }
 
 .sub-pending-sec {
@@ -152,4 +176,27 @@
 }
 .down-border {
   border-radius: 1.7rem 1.7rem 1.7rem 0;
+}
+
+.fileInput {
+  display: none;
+}
+.fileInputLabel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  color: #979797;
+  border: none;
+  border-radius: 1.2rem;
+  padding: 1rem;
+  font-size: 0.8rem;
+  align-self: flex-start;
+  width: 8rem;
+  margin-top: 1rem;
+}
+.formButtons {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
 }

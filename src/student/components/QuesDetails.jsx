@@ -1,17 +1,26 @@
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 
 import SubmissionPending from "./details/SubmissionPending";
 import UnderEvaluation from "./details/UnderEvaluation";
 import Completed from "./details/Completed";
 
 const QuesDetails = (props) => {
-  //console.log("rendered");
   var question = props.QuestionOpened;
+
+  const { qNo } = useParams();
+  const [status, setStatus] = useState(props.QuestionOpened.status);
   useEffect(() => {
-    question = props.QuestionOpened;
+    setStatus(props.QuestionOpened.status);
   }, [props.QuestionOpened]);
 
-  console.log("rendered Questiondetails" + question.question_no);
+  console.log("rendered Questiondetails" + qNo);
+
+  function changeToPending(flag) {
+    if (flag == true) {
+      setStatus("pending");
+    }
+  }
 
   return (
     <div
@@ -23,12 +32,12 @@ const QuesDetails = (props) => {
           : ""
       }`}
     >
-      {question.status === "pending" ? (
+      {status === "pending" ? (
         <SubmissionPending question={question} />
-      ) : question.status === "submitted" ? (
+      ) : status === "submitted" ? (
         <UnderEvaluation question={question} />
       ) : (
-        <Completed question={question} />
+        <Completed question={question} reSubmit={changeToPending} />
       )}
     </div>
   );
