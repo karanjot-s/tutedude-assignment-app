@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
 
 import "./Questions.css";
 
 const QuestionSection = (props) => {
   const question = props.question;
   const [view, setView] = useState("open");
-
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (props.opened !== question.question_no) {

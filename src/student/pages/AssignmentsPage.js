@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import $ from "jquery";
 
 import AssignmentList from "../components/AssignmentList";
 import "./AssignmentPage.css";
@@ -8,210 +7,210 @@ const AssignmestsPage = () => {
   //const domain=http://tutedude.herokuapp.com
   //const url=domain+"/course/subjects"
 
-  // const assignments = [
-  //   {
-  //     _id: "62e21ad8ef8ce43ddbdd3546",
-  //     subject_id: "1",
-  //     questions: [
-  //       {
-  //         question_no: "1",
-  //         question: "WAP to check if the number is prime",
-  //         points: "2",
-  //         status: "submitted",
-  //         submissions: [
-  //           {
-  //             //type: "file",
-  //             attempt: "1",
-  //             filelink: [
-  //               "cloudfilename.ext",
-  //               "cloudfilename.ext",
-  //               "cloudfilename.ext",
-  //               "cloudfilename.ext",
-  //               "cloudfilename.ext",
-  //               "cloudfilename.ext",
-  //             ],
-  //             filename: [
-  //               "uploadedFileName",
-  //               "uploadedFileName",
-  //               "uploadedFileName",
-  //               "uploadedFileName",
-  //               "uploadedFileName",
-  //               "uploadedFileName",
-  //             ],
-  //             link: ["url1", "url2"],
-  //             text: "abc",
-  //           },
-  //           {
-  //             attempt: "2",
-  //             filelink: [],
-  //             filename: [],
-  //             link: ["url1", "url2"],
-  //             text: "abc",
-  //           },
-  //           {
-  //             attempt: "3",
-  //             filelink: [],
-  //             filename: [],
-  //             link: [],
-  //             text: "abc",
-  //           },
-  //         ],
-  //       },
-  //       {
-  //         question_no: "2",
-  //         question: "WAP completed",
-  //         points: "1",
-  //         instructions: "ABC",
-  //         status: "completed",
-  //         submissions: [
-  //           {
-  //             attempt: "1",
-  //             filelink: ["cloudfilename.ext", "cloudfilename.ext"],
-  //             filename: ["uploadedFileName", "uploadedFileName"],
-  //             link: ["url1", "url2"],
-  //             text: "abc",
-  //             review: "review for attempt1",
-  //           },
-  //           {
-  //             attempt: "2",
-  //             filelink: ["cloudfilename.ext", "cloudfilename.ext"],
-  //             filename: ["uploadedFileName", "uploadedFileName"],
-  //             link: [],
-  //             text: null,
-  //             review: "review for attempt2",
-  //           },
-  //           {
-  //             attempt: "3",
-  //             filelink: [],
-  //             filename: [],
-  //             link: ["url1", "url2"],
-  //             text: "abc",
-  //             review: "review for attempt3",
-  //           },
-  //           {
-  //             attempt: "4",
-  //             filelink: [],
-  //             filename: [],
-  //             link: ["url1", "url2"],
-  //             text: null,
-  //             review: "review for attempt4",
-  //           },
-  //         ],
-  //       },
-  //       {
-  //         question_no: "3",
-  //         question: "WAP pending",
-  //         points: "3",
-  //         instructions: "ABC",
-  //         status: "pending",
-  //       },
-  //       {
-  //         question_no: "4",
-  //         question: "WAP to check if",
-  //         points: "2",
-  //         status: "submitted",
-  //         submissions: [
-  //           {
-  //             attempt: "1",
-  //             filelink: [
-  //               "cloudfilename.ext",
-  //               "cloudfilename.ext",
-  //               "uploadedFileName",
-  //               "uploadedFileName",
-  //               "uploadedFileName",
-  //               "uploadedFileName",
-  //               "uploadedFileName",
-  //               "uploadedFileName",
-  //             ],
-  //             filename: [
-  //               "uploadedFileName",
-  //               "uploadedFileName",
-  //               "uploadedFileName",
-  //               "uploadedFileName",
-  //               "uploadedFileName",
-  //               "uploadedFileName",
-  //               "uploadedFileName",
-  //               "uploadedFileName",
-  //             ],
-  //             link: ["url1", "url2"],
-  //             text: "abc",
-  //           },
-  //         ],
-  //       },
-  //     ],
-  //   },
-  //   {
-  //     _id: "62e21ad8ef8ce43dd",
-  //     subject_id: "1",
-  //     questions: [
-  //       {
-  //         question_no: "1",
-  //         question: "WAP completed",
-  //         points: "1",
-  //         instructions: "ABC",
-  //         status: "completed",
-  //         submissions: [
-  //           {
-  //             attempt: "1",
-  //             filelink: ["cloudfilename.ext", "cloudfilename.ext"],
-  //             filename: ["uploadedFileName", "uploadedFileName"],
-  //             link: ["url1", "url2"],
-  //             text: "abc",
-  //             review: "review for attempt1",
-  //           },
-  //           {
-  //             attempt: "2",
-  //             filelink: ["cloudfilename.ext", "cloudfilename.ext"],
-  //             filename: ["uploadedFileName", "uploadedFileName"],
-  //             link: ["url1", "url2"],
-  //             text: "abc",
-  //             review: "review for attempt2",
-  //           },
-  //           {
-  //             attempt: "3",
-  //             filelink: ["cloudfilename.ext", "cloudfilename.ext"],
-  //             filename: ["uploadedFileName", "uploadedFileName"],
-  //             link: ["url1", "url2"],
-  //             text: "abc",
-  //             review: "review for attempt3",
-  //           },
-  //         ],
-  //       },
-  //     ],
-  //   },
-  //   {
-  //     _id: "62e21ad8e",
-  //     subject_id: "1",
-  //     questions: [
-  //       {
-  //         question_no: "1",
-  //         question: "WAP pending",
-  //         points: "3",
-  //         instructions: "ABC",
-  //         status: "pending",
-  //       },
-  //       {
-  //         question_no: "2",
-  //         question: "WAP pending",
-  //         points: "3",
-  //         instructions: "ABC",
-  //         status: "pending",
-  //       },
-  //       {
-  //         question_no: "3",
-  //         question: "WAP pending",
-  //         points: "3",
-  //         instructions: "ABC",
-  //         status: "pending",
-  //       },
-  //     ],
-  //   },
-  // ];
-  const [assignments, setAssignments] = useState([]);
+  const assignments = [
+    {
+      _id: "62e21ad8ef8ce43ddbdd3546",
+      subject_id: "1",
+      questions: [
+        {
+          question_no: "1",
+          question: "WAP to check if the number is prime",
+          points: "2",
+          status: "submitted",
+          submissions: [
+            {
+              //type: "file",
+              attempt: "1",
+              filelink: [
+                "cloudfilename.ext",
+                "cloudfilename.ext",
+                "cloudfilename.ext",
+                "cloudfilename.ext",
+                "cloudfilename.ext",
+                "cloudfilename.ext",
+              ],
+              filename: [
+                "uploadedFileName",
+                "uploadedFileName",
+                "uploadedFileName",
+                "uploadedFileName",
+                "uploadedFileName",
+                "uploadedFileName",
+              ],
+              link: ["url1", "url2"],
+              text: "abc",
+            },
+            {
+              attempt: "2",
+              filelink: [],
+              filename: [],
+              link: ["url1", "url2"],
+              text: "abc",
+            },
+            {
+              attempt: "3",
+              filelink: [],
+              filename: [],
+              link: [],
+              text: "abc",
+            },
+          ],
+        },
+        {
+          question_no: "2",
+          question: "WAP completed",
+          points: "1",
+          instructions: "ABC",
+          status: "completed",
+          submissions: [
+            {
+              attempt: "1",
+              filelink: ["cloudfilename.ext", "cloudfilename.ext"],
+              filename: ["uploadedFileName", "uploadedFileName"],
+              link: ["url1", "url2"],
+              text: "abc",
+              review: "review for attempt1",
+            },
+            {
+              attempt: "2",
+              filelink: ["cloudfilename.ext", "cloudfilename.ext"],
+              filename: ["uploadedFileName", "uploadedFileName"],
+              link: [],
+              text: null,
+              review: "review for attempt2",
+            },
+            {
+              attempt: "3",
+              filelink: [],
+              filename: [],
+              link: ["url1", "url2"],
+              text: "abc",
+              review: "review for attempt3",
+            },
+            {
+              attempt: "4",
+              filelink: [],
+              filename: [],
+              link: ["url1", "url2"],
+              text: null,
+              review: "review for attempt4",
+            },
+          ],
+        },
+        {
+          question_no: "3",
+          question: "WAP pending",
+          points: "3",
+          instructions: "ABC",
+          status: "pending",
+        },
+        {
+          question_no: "4",
+          question: "WAP to check if",
+          points: "2",
+          status: "submitted",
+          submissions: [
+            {
+              attempt: "1",
+              filelink: [
+                "cloudfilename.ext",
+                "cloudfilename.ext",
+                "uploadedFileName",
+                "uploadedFileName",
+                "uploadedFileName",
+                "uploadedFileName",
+                "uploadedFileName",
+                "uploadedFileName",
+              ],
+              filename: [
+                "uploadedFileName",
+                "uploadedFileName",
+                "uploadedFileName",
+                "uploadedFileName",
+                "uploadedFileName",
+                "uploadedFileName",
+                "uploadedFileName",
+                "uploadedFileName",
+              ],
+              link: ["url1", "url2"],
+              text: "abc",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      _id: "62e21ad8ef8ce43dd",
+      subject_id: "1",
+      questions: [
+        {
+          question_no: "1",
+          question: "WAP completed",
+          points: "1",
+          instructions: "ABC",
+          status: "completed",
+          submissions: [
+            {
+              attempt: "1",
+              filelink: ["cloudfilename.ext", "cloudfilename.ext"],
+              filename: ["uploadedFileName", "uploadedFileName"],
+              link: ["url1", "url2"],
+              text: "abc",
+              review: "review for attempt1",
+            },
+            {
+              attempt: "2",
+              filelink: ["cloudfilename.ext", "cloudfilename.ext"],
+              filename: ["uploadedFileName", "uploadedFileName"],
+              link: ["url1", "url2"],
+              text: "abc",
+              review: "review for attempt2",
+            },
+            {
+              attempt: "3",
+              filelink: ["cloudfilename.ext", "cloudfilename.ext"],
+              filename: ["uploadedFileName", "uploadedFileName"],
+              link: ["url1", "url2"],
+              text: "abc",
+              review: "review for attempt3",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      _id: "62e21ad8e",
+      subject_id: "1",
+      questions: [
+        {
+          question_no: "1",
+          question: "WAP pending",
+          points: "3",
+          instructions: "ABC",
+          status: "pending",
+        },
+        {
+          question_no: "2",
+          question: "WAP pending",
+          points: "3",
+          instructions: "ABC",
+          status: "pending",
+        },
+        {
+          question_no: "3",
+          question: "WAP pending",
+          points: "3",
+          instructions: "ABC",
+          status: "pending",
+        },
+      ],
+    },
+  ];
 
+  /*
   useEffect(() => {
     $.ajax({
-      url: "https://assignment-backend-tutedude.herokuapp.com/assignment/view?subject_id=1&student_id=12",
+      url: "https://assignment-backend-tutedude.herokuapp.com/assignment/view?subject_id=1&student_id=14",
       type: "get",
       data: { student_id: 12, subject_id: 1 },
       processData: false,
@@ -223,22 +222,21 @@ const AssignmestsPage = () => {
         console.log(errorThrown);
       },
     });
-  }, []);
-
-  const [isLoading, setLoading] = useState(false);
+  }, []);*/
+  const [isLoading, setLoading] = useState(true);
 
   function fakeRequest() {
     return new Promise((resolve) => setTimeout(() => resolve(), 1000));
   }
 
-  // useEffect(() => {
-  //   fakeRequest().then(() => {
-  //     const el = document.querySelector(".loader-container");
-  //     if (el) {
-  //       setLoading(!isLoading);
-  //     }
-  //   });
-  // }, []);
+  useEffect(() => {
+    fakeRequest().then(() => {
+      const el = document.querySelector(".loader-container");
+      if (el) {
+        setLoading(!isLoading);
+      }
+    });
+  }, []);
 
   // {
   //   no: 1,
