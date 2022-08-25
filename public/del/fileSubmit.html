@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="file.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div></div>
+    <div class="fileFlex">
+      <div class="fileSelected">a</div>
+      <div class="fileUpload">
+        <div
+          id="drop_zone"
+          ondrop="dropHandler(event);"
+          ondragover="dragOverHandler(event);"
+        >
+          <p>Drag one or more files to this <i>drop zone</i>.</p>
+        </div>
+      </div>
+    </div>
+    <script>
+      window.ondragover = function (e) {
+        e.preventDefault();
+        return false;
+      };
+      window.ondrop = function (e) {
+        e.preventDefault();
+        return false;
+      };
+
+      console.log("sdfg");
+      function dropHandler(ev) {
+        console.log("File(s) dropped");
+
+        // Prevent default behavior (Prevent file from being opened)
+        ev.preventDefault();
+
+        if (ev.dataTransfer.items) {
+          // Use DataTransferItemList inte
+          // Use DataTransferItemList interface to access the file(s)
+          [...ev.dataTransfer.items].forEach((item, i) => {
+            // If dropped items aren't files, reject them
+            if (item.kind === "file") {
+              const file = item.getAsFile();
+              console.log(`… file[${i}].name = ${file.name}`);
+            }
+          });
+        } else {
+          // Use DataTransfer interface to access the file(s)
+          [...ev.dataTransfer.files].forEach((file, i) => {
+            console.log(`… file[${i}].name = ${file.name}`);
+          });
+        }
+      }
+      function dragOverHandler(ev) {
+        console.log("File(s) in drop zone");
+
+        // Prevent default behavior (Prevent file from being opened)
+        ev.preventDefault();
+      }
+    </script>
+  </body>
+</html>

@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
+import File from "./student/components/details/ModalElements/File";
 import AssignmentsPage from "./student/pages/AssignmentsPage";
 import MainNavigation from "./shared/components/Navigation/MainNavigation";
 import "./App.css";

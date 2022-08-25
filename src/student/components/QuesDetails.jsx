@@ -17,23 +17,21 @@ const QuesDetails = (props) => {
   console.log("rendered Questiondetails : " + question.question_no);
 
   function changeToPending(flag) {
-    if (flag == true) {
+    if (flag === true) {
       setStatus("pending");
     }
   }
+  function sendNotificationToChangeSection() {
+    props.changeSectionNotify();
+  }
 
   return (
-    <div
-      className={`ques-details ${
-        question.question_no === "1"
-          ? "up-border"
-          : question.question_no === props.lastQues.toString()
-          ? "down-border"
-          : ""
-      }`}
-    >
+    <div className="ques-details">
       {status === "pending" ? (
-        <SubmissionPending question={question} />
+        <SubmissionPending
+          question={question}
+          changeSec={sendNotificationToChangeSection}
+        />
       ) : status === "submitted" ? (
         <UnderEvaluation question={question} />
       ) : (

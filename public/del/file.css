@@ -1,0 +1,15 @@
+.fileFlex {
+  margin: 10rem auto;
+  width: 50%;
+  background-color: aquamarine;
+  display: flex;
+}
+.fileSelected {
+  width: 50%;
+}
+#drop_zone {
+  border: 5px solid blue;
+  width: 200px;
+  height: 100px;
+  z-index: 9999999;
+}
