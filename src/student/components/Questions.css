@@ -71,6 +71,10 @@
 .ques-details h3 {
   color: #282828;
 }
+h3 span {
+  font-weight: 400;
+  font-size: smaller;
+}
 /*
 .ques-details::before {
   content: "";

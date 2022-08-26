@@ -4,10 +4,11 @@ import Modal from "react-modal";
 import Delete from "./ModalElements/Delete";
 import Edit from "./ModalElements/Edit";
 import NewButtons from "./ModalElements/NewButtons";
-import File from "./ModalElements/File";
 import Link from "./ModalElements/Link";
 import Text from "./ModalElements/Text";
+import NewFile from "./ModalElements/NewFile";
 
+/************modal**************/
 Modal.defaultStyles.overlay.backgroundColor = "rgba(74, 73, 73, 0.7)";
 const customStyles = {
   content: {
@@ -46,6 +47,8 @@ const SubmissionPending = (props) => {
     setModalType(type);
   }
 
+  /************modal**************/
+
   var question = props.question;
 
   const [viewSolButton, setView] = useState(false);
@@ -70,6 +73,37 @@ const SubmissionPending = (props) => {
     sub = question.submissions[question.submissions.length - 1];
   else sub = null;
 
+  if (question.submissions) {
+    var dateObj = new Date(sub.updatedAt);
+    var month = dateObj.getUTCMonth(); //months from 0-11
+    const monthNames = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ];
+    var day = dateObj.getUTCDate();
+    var year = dateObj.getUTCFullYear();
+    var newdate = day + " " + monthNames[month] + ", " + year;
+  } else newdate = "abc";
+
+  /*****************getting updated data */
+  const [file, setFile] = useState(null);
+  function getFile(file) {
+    setFile(file);
+    setModalType("newFile");
+  }
+
+  /*****************getting updated data */
+
   return (
     <div className="sub-pending-sec">
       <Modal
@@ -84,9 +118,13 @@ const SubmissionPending = (props) => {
         ) : modalType === "edit" ? (
           <Edit close={closeModal} proceed={changeToNewButtons} />
         ) : modalType === "proceed" ? (
-          <NewButtons close={closeModal} setSolutionType={changeModalForSol} />
-        ) : modalType === "file" ? (
-          <File close={closeModal} /*passText={getText}*/ />
+          <NewButtons
+            close={closeModal}
+            setSolutionType={changeModalForSol}
+            sendFile={getFile}
+          />
+        ) : modalType === "newFile" ? (
+          <NewFile close={closeModal} filename={file.name} />
         ) : modalType === "text" ? (
           <Text close={closeModal} /*passText={getText}*/ />
         ) : (
@@ -95,12 +133,6 @@ const SubmissionPending = (props) => {
       </Modal>
       <h3>Question</h3>
       <p>{question.question}</p>
-      {/* {question.instructions && (
-        <div>
-          <h3>Instructions</h3>
-          <p>{question.instructions}</p>
-        </div>
-      )} */}
 
       {!viewSolButton && (
         <div className="flex-column">
@@ -116,7 +148,9 @@ const SubmissionPending = (props) => {
       )}
       {viewSolButton && (
         <div className="flex-column">
-          <h3>Solution You Submitted</h3>
+          <h3>
+            Solution You Submitted <span>(updated on {newdate})</span>
+          </h3>
           <div className="white-area">
             {sub !== null && sub.filename && (
               <>
@@ -125,7 +159,7 @@ const SubmissionPending = (props) => {
                     <div className="white-area-element">
                       <span>{fname}</span>
                       <section>
-                        <a href={sub.filelink[index]}>
+                        <a href={sub.filelink[index]} target="_blank">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="24"

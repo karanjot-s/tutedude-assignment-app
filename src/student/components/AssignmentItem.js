@@ -1,13 +1,10 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
 
 import "./AssignmentItem.css";
 
 import QuestionSection from "./QuestionSection";
 
 const AssignmentItem = (props) => {
-  const navigate = useNavigate();
-
   const assignment = props.assignment;
 
   var completed = 0;

@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 const SubmissionPending = (props) => {
   var question = props.question;
   const [resubmit, setResubmit] = useState(false);
-  const [view, setView] = useState("View Your Solution");
+  const [view, setView] = useState("Mentor's Feedback");
 
   // useEffect(() => {
   //   question = props.question;
@@ -64,25 +64,6 @@ const SubmissionPending = (props) => {
                               <path d="M12 21l-8-9h6v-12h4v12h6l-8 9zm9-1v2h-18v-2h-2v4h22v-4h-2z" />
                             </svg>
                           </a>
-                          <button className="edit-button">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="24"
-                              height="24"
-                              viewBox="0 0 24 24"
-                            >
-                              <path d="M19.769 9.923l-12.642 12.639-7.127 1.438 1.438-7.128 12.641-12.64 5.69 5.691zm1.414-1.414l2.817-2.82-5.691-5.689-2.816 2.817 5.69 5.692z" />
-                            </svg>
-                          </button>
-                          <button className="delete-button">
-                            <svg
-                              width="24"
-                              height="24"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path d="M19 24h-14c-1.104 0-2-.896-2-2v-16h18v16c0 1.104-.896 2-2 2m3-19h-20v-2h6v-1.5c0-.827.673-1.5 1.5-1.5h5c.825 0 1.5.671 1.5 1.5v1.5h6v2zm-12-2h4v-1h-4v1z" />
-                            </svg>
-                          </button>
                         </>
                       </div>
                     </React.Fragment>

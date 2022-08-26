@@ -11,6 +11,8 @@ const NewButtons = (props) => {
 
     if (e.target.files) {
       console.log(e.target.files.length);
+      if (e.target.files.length > 1) alert("select only one file");
+      else props.sendFile(e.target.files[0]);
     }
   };
 

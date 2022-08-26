@@ -16,7 +16,6 @@
 .solution-list {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   width: 25rem;
   height: 20rem;
 

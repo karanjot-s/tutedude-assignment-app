@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import QuestionItem from "./QuestionItem";
 import QuesDetails from "./QuesDetails";
@@ -8,7 +7,7 @@ import PrevSolList from "./previous solutions/PrevSolList";
 
 const QuestionSection = (props) => {
   const questions = props.questions;
-  const [opened, setOpened] = useState("1");
+  const [opened, setOpened] = useState(1);
   const [quesOpened, setQues] = useState(questions[0]);
   const [solutionSection, setSolutionSection] = useState(false);
 
@@ -33,7 +32,7 @@ const QuestionSection = (props) => {
     setQues(ques[0]);
   }, [opened]);
 
-  console.log("rendered section" + quesOpened.question_no);
+  console.log("rendered Questionsection" + quesOpened.question_no);
 
   function changeSection() {
     console.log("Notification recieved");
@@ -58,18 +57,6 @@ const QuestionSection = (props) => {
           lastQues={questions.length}
           changeSectionNotify={changeSection}
         />
-        {/* <Routes>
-        <Route
-          path="/question/:qNo"
-          element={
-            <QuesDetails
-              QuestionOpened={quesOpened}
-              questions={questions}
-              lastQues={questions.length}
-            />
-          }
-        />
-      </Routes> */}
       </div>
     );
 
