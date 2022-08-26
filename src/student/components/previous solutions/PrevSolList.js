@@ -5,19 +5,38 @@ import "./solution.css";
 
 const PrevSolList = (props) => {
   const question = props.question;
-  // const [view, setView] = useState("open");
   const [opened, setOpened] = useState(0);
-
-  // function changeView() {
-  //   // navigate(`/question/${question.question_no}`, { state: true });
-  //   setView("viewing");
-  // }
 
   function changeSectionNotify(flag) {
     if (flag == true) {
       props.changeSec();
     }
   }
+
+  var solDate = [];
+  question.submissions.forEach((sol) => {
+    var dateObj = new Date(sol.updatedAt);
+    var month = dateObj.getUTCMonth(); //months from 0-11
+    const monthNames = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ];
+    var day = dateObj.getUTCDate();
+    //var year = dateObj.getUTCFullYear();
+    var newdate = day + " " + monthNames[month];
+    solDate.push(newdate);
+  });
+
   console.log(question);
   return (
     <div className="ques-section">
@@ -37,8 +56,11 @@ const PrevSolList = (props) => {
                   setOpened(index);
                 }}
               >
-                {sol.attempt}
-                <div>{opened === index ? "viewing" : "open"}</div>
+                <span>{question.question.slice(0, 35) + "..."}</span>
+                <div>
+                  <span>{solDate[index]}</span>
+                  <span>{opened === index ? "viewing" : "open"}</span>
+                </div>
               </div>
             </React.Fragment>
           ))}

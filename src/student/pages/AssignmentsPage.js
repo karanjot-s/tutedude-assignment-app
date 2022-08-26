@@ -8,7 +8,7 @@ const AssignmestsPage = () => {
   //const domain=http://tutedude.herokuapp.com
   //const url=domain+"/course/subjects"
 
-  /* const assignments = [
+  const assignments = [
     {
       _id: "62e21ad8ef8ce43ddbdd3546",
       subject_id: 1,
@@ -206,7 +206,7 @@ const AssignmestsPage = () => {
         },
       ],
     },
-  ];*/
+  ];
 
   const [isLoading, setLoading] = useState(!true);
   /*  const [assignments, setAssignments] = useState([]);
@@ -234,13 +234,14 @@ const AssignmestsPage = () => {
     []
   );*/
 
-  const assignments = [
+  /* const assignments = [
     {
       assignment_id: "63070b2e85f6f1e1366b48dd",
       subject_id: 1,
       questions: [
         {
-          question: "ABC",
+          question:
+            "ABC lorem ipsum mohit prasad sah dndc cnvk dkv dkdv dcnd die kcnc kcdn dkjv",
           question_no: 1,
           instructions: "pqr",
           status: "completed",
@@ -278,7 +279,7 @@ const AssignmestsPage = () => {
         },
       ],
     },
-  ];
+  ];*/
 
   // function fakeRequest() {
   //   return new Promise((resolve) => setTimeout(() => resolve(), 1000));

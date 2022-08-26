@@ -72,7 +72,9 @@ const SubmissionPending = (props) => {
   if (question.submissions)
     sub = question.submissions[question.submissions.length - 1];
   else sub = null;
-
+  useEffect(() => {
+    setView(false);
+  }, [sub]);
   if (question.submissions) {
     var dateObj = new Date(sub.updatedAt);
     var month = dateObj.getUTCMonth(); //months from 0-11
@@ -93,7 +95,7 @@ const SubmissionPending = (props) => {
     var day = dateObj.getUTCDate();
     var year = dateObj.getUTCFullYear();
     var newdate = day + " " + monthNames[month] + ", " + year;
-  } else newdate = "abc";
+  } else newdate = "-";
 
   /*****************getting updated data */
   const [file, setFile] = useState(null);

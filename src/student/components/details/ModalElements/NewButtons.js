@@ -17,37 +17,40 @@ const NewButtons = (props) => {
   };
 
   return (
-    <div className="text-modal">
+    <div className="del-modal">
       <div className="text-head">
-        <button
-          //onClick={(event) => handleSubmit(event)}
-          className="cancel-modal"
-          name="file"
-        >
-          <label htmlFor="myFiles" className="file-upload-button">
-            Add files
-            <input
-              type="file"
-              id="myFiles"
-              onChange={handleFileInput}
-              multiple
-            />
-          </label>
-        </button>
-        <button
-          onClick={(event) => handleSubmit(event)}
-          className="cancel-modal"
-          name="link"
-        >
-          link
-        </button>
-        <button
-          onClick={(event) => handleSubmit(event)}
-          className="cancel-modal"
-          name="text"
-        >
-          text
-        </button>
+        <p>Add new file,text or link</p>
+        <div>
+          <button
+            //onClick={(event) => handleSubmit(event)}
+            className="outline-button"
+            name="file"
+          >
+            <label htmlFor="myFiles" className="">
+              Add files
+              <input
+                type="file"
+                id="myFiles"
+                onChange={handleFileInput}
+                multiple
+              />
+            </label>
+          </button>
+          <button
+            onClick={(event) => handleSubmit(event)}
+            className="outline-button"
+            name="link"
+          >
+            link
+          </button>
+          <button
+            onClick={(event) => handleSubmit(event)}
+            className="outline-button"
+            name="text"
+          >
+            text
+          </button>
+        </div>
       </div>
     </div>
   );

@@ -48,13 +48,13 @@ const SubmissionPending = (props) => {
             <h3>Solution You Submitted</h3>
             <div className="white-area">
               {sub !== null && sub.filename && (
-                <div>
+                <>
                   {sub.filename.map((fname, index) => (
                     <React.Fragment key={index}>
                       <div className="white-area-element">
                         <span>{fname}</span>
-                        <>
-                          <a href={sub.filelink[index]}>
+                        <section>
+                          <a href={sub.filelink[index]} target="_blank">
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
                               width="24"
@@ -64,28 +64,51 @@ const SubmissionPending = (props) => {
                               <path d="M12 21l-8-9h6v-12h4v12h6l-8 9zm9-1v2h-18v-2h-2v4h22v-4h-2z" />
                             </svg>
                           </a>
-                        </>
+                        </section>
                       </div>
                     </React.Fragment>
                   ))}
-                </div>
+                </>
               )}
               {sub !== null && sub.text && (
-                <div>
+                <div className="white-area-element">
                   <span>{sub.text}</span>
+                  <section>
+                    <a href="{}">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                      >
+                        <path d="M12 21l-8-9h6v-12h4v12h6l-8 9zm9-1v2h-18v-2h-2v4h22v-4h-2z" />
+                      </svg>
+                    </a>
+                  </section>
                 </div>
               )}
               {sub !== null && sub.link && (
-                <div>
+                <>
                   {sub.link.map((l, index) => (
                     <React.Fragment key={index}>
-                      <div>
+                      <div className="white-area-element">
                         <span>{l}</span>
-                        <a href={l}>go to</a>
+                        <section>
+                          <a href={l}>
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                            >
+                              <path d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z" />
+                            </svg>
+                          </a>
+                        </section>
                       </div>
                     </React.Fragment>
                   ))}
-                </div>
+                </>
               )}
             </div>
           </div>

@@ -7,6 +7,27 @@ const SolutionDetails = (props) => {
   let sub;
   if (solution) sub = solution;
   else sub = null;
+  if (question.submissions) {
+    var dateObj = new Date(sub.updatedAt);
+    var month = dateObj.getUTCMonth(); //months from 0-11
+    const monthNames = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ];
+    var day = dateObj.getUTCDate();
+    var year = dateObj.getUTCFullYear();
+    var newdate = day + " " + monthNames[month] + ", " + year;
+  } else newdate = "-";
 
   const [view, setView] = useState("Solution View");
 
@@ -35,7 +56,9 @@ const SolutionDetails = (props) => {
 
       {view === "Solution View" && (
         <div className="flex-column">
-          <h3>Solution You Submitted</h3>
+          <h3>
+            Solution You Submitted <span>(updated on {newdate})</span>
+          </h3>
           <div className="white-area">
             {sub !== null && sub.filename && (
               <>

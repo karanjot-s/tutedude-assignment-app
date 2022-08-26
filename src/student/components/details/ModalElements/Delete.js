@@ -15,18 +15,20 @@ const Delete = (props) => {
   };
 
   return (
-    <div className={`text-modal ${success ? "success" : ""}`}>
+    <div className={`del-modal ${success ? "success" : ""}`}>
       <div className="text-head">
         <p>Do yo want to delete</p>
-        <button
-          onClick={(event) => handleSubmit(event)}
-          className="cancel-modal"
-        >
-          Proceed
-        </button>
-        <button onClick={() => props.close()} className="cancel-modal">
-          cancel
-        </button>
+        <div>
+          <button onClick={() => props.close()} className="outline-button">
+            cancel
+          </button>
+          <button
+            onClick={(event) => handleSubmit(event)}
+            className="filled-button"
+          >
+            Proceed
+          </button>
+        </div>
       </div>
       <section className="success-sec">
         <svg
