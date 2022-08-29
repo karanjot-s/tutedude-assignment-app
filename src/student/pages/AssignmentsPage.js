@@ -6,9 +6,9 @@ import "./AssignmentPage.css";
 
 const AssignmestsPage = () => {
   //const domain=http://tutedude.herokuapp.com
-  //const url=domain+"/course/subjects"
+  const url = "https://assignment-backend-tutedude.herokuapp.com";
 
-  const assignments = [
+  /*const assignments = [
     {
       _id: "62e21ad8ef8ce43ddbdd3546",
       subject_id: 1,
@@ -39,6 +39,7 @@ const AssignmestsPage = () => {
                 "uploadedFileName",
               ],
               link: ["url1", "url2"],
+              linkText:[],
               text: "abc",
             },
             {
@@ -207,13 +208,13 @@ const AssignmestsPage = () => {
       ],
     },
   ];
-
+*/
   const [isLoading, setLoading] = useState(!true);
-  /*  const [assignments, setAssignments] = useState([]);
+  /**/ const [assignments, setAssignments] = useState([]);
   useEffect(
     () => {
       $.ajax({
-        url: "https://assignment-backend-tutedude.herokuapp.com/assignment/view?subject_id=1&student_id=17",
+        url: "https://assignment-backend-tutedude.herokuapp.com/assignment/view?subject_id=1&student_id=31",
         type: "get",
         data: { student_id: 12, subject_id: 1 },
         processData: false,
@@ -232,7 +233,35 @@ const AssignmestsPage = () => {
       });
     }, // eslint-disable-next-line
     []
-  );*/
+  ); /**/
+
+  function sendData(data) {
+    console.log("hjk");
+    $.ajax({
+      url: "https://assignment-backend-tutedude.herokuapp.com/assignment/view?subject_id=1&student_id=31",
+      type: "get",
+      data: { student_id: 12, subject_id: 1 },
+      processData: false,
+      success: function (data, textStatus, jQxhr) {
+        console.log(data);
+        setAssignments(data.data);
+      },
+      error: function (jqXhr, textStatus, errorThrown) {
+        console.log(errorThrown);
+      },
+    }).then(() => {
+      const el = document.querySelector(".loader-container");
+      if (el) {
+        setLoading(!isLoading);
+      }
+    });
+  }
+
+  // const ids = {
+  //   student_id: 1,
+  //   subject_id: 17,
+  // };
+  // exports.ids = ids;
 
   /* const assignments = [
     {
@@ -311,7 +340,7 @@ const AssignmestsPage = () => {
             <span>Progress</span>
             <span>Action</span>
           </div>
-          <AssignmentList assignments={assignments} />
+          <AssignmentList assignments={assignments} sendData={sendData} />
         </div>
       )}
     </div>

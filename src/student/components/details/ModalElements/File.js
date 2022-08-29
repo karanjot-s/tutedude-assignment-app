@@ -26,7 +26,7 @@ const File = (props) => {
   //   />
   // ));
   const [submit, setSubmit] = useState(false);
-  const [files, setFiles] = useState([]);
+  const [files, setFiles] = useState(props.previousFiles);
 
   window.ondragover = function (e) {
     e.preventDefault();

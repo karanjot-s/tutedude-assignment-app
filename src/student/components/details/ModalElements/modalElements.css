@@ -162,7 +162,7 @@ input[type="file"] {
   transition: all 0.5s !important;
 }
 .success div {
-  display: none;
+  display: none !important;
 }
 .success-sec {
   display: none;

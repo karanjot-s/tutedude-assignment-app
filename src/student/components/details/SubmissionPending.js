@@ -4,6 +4,7 @@ import Modal from "react-modal";
 import File from "./ModalElements/File";
 import Link from "./ModalElements/Link";
 import Text from "./ModalElements/Text";
+import { ids } from "../../pages/AssignmentsPage";
 
 Modal.defaultStyles.overlay.backgroundColor = "rgba(74, 73, 73, 0.7)";
 const customStyles = {
@@ -20,6 +21,7 @@ const customStyles = {
 };
 Modal.setAppElement("#root");
 
+let student_id = prompt("student_id");
 const SubmissionPending = (props) => {
   const [modalIsOpen, setIsOpen] = React.useState(false);
   const [modalType, setModalType] = React.useState("file");
@@ -39,26 +41,28 @@ const SubmissionPending = (props) => {
   const [submit, setSubmit] = useState(false);
   const [files, setFiles] = useState([]);
   const [text, setText] = useState(null);
-  const [link, setLink] = useState({ text: null, url: null });
+  const [links, setLinks] = useState([]);
 
   //
 
-  // useEffect(() => {
-  //   setSolution("");
-  //   setSubmit(false);
-  // }, [props.question]);
+  useEffect(() => {
+    //   setSolution("");
+    setSubmit(false);
+  }, [props.question]);
 
   console.log("rendered submitsec" + question.question_no);
 
   function getFiles(files) {
-    setFiles((prevFiles) => {
+    /*setFiles((prevFiles) => {
       return [...prevFiles, ...files];
-    });
+    });*/
+
+    setFiles(files);
     // console.log(files);
   }
 
-  function getLink(link) {
-    setLink(link);
+  function getLinks(links) {
+    setLinks(links);
   }
   function getText(text) {
     setText(text);
@@ -76,17 +80,82 @@ const SubmissionPending = (props) => {
   async function uploadFile() {
     let formData = new FormData();
 
+    const aid = 123;
+    formData.append("assignment_id", props.assignmentId);
+    formData.append("student_id", student_id);
+    formData.append("subject_id", 1);
+    //formData.append("submission_id", "63076a7b810d1312a3ddc61c");
+    formData.append("attempt", 1);
+    formData.append("question_no", question.question_no);
+    formData.append("question", question.question);
+    if (question.points) formData.append("points", question.points); //take if points in question else leave
+    formData.append("aid", aid);
+    formData.append("n", files.length);
+
     [...files].forEach((file, i) => {
-      formData.append(file.name, file);
+      formData.append(aid + "_" + i, file);
     });
 
-    if (link.url !== null) formData.append("link", link.url);
+    var linkText = [];
+    var linkUrl = [];
+    console.log(links);
+    links.forEach((link, i) => {
+      console.log(link);
+      linkText.push();
+    });
+
+    /*if (link.url !== null) formData.append("link", link.url);
+    if (link.text !== null) formData.append("linkText", link.text);*/
+
     if (text !== null) formData.append("text", text);
+
+    var submit = "/submit";
+    if (question.status === "completed") {
+      let sub;
+      if (question.submissions)
+        sub = question.submissions[question.submissions.length - 1];
+      else sub = null;
+      formData.append("submission_id", question.submission_id);
+      formData.append("attempt", sub.attempt + 1);
+      submit = "/resubmit";
+    }
 
     for (var key of formData.entries()) {
       console.log(key[0]);
       console.log(key[1]);
     }
+    const url = "https://assignment-backend-tutedude.herokuapp.com";
+    let a = await fetch(url + submit, {
+      method: "POST",
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((data) => console.log(data))
+      .then((response, data) => {
+        console.log(response);
+        console.log(data);
+        props.sendData(data);
+      });
+
+    /*.then((response, data) => {
+      console.log("Response in uploadFile....");
+      console.log(response);
+      console.log(data);
+      if (response.status == 200) {
+        alert("Assignment Submitted!");
+        for (let i = 0; i < files.length; i++) {
+          let temp = document.getElementById(aid + "_" + i);
+          console.log(temp);
+          if (temp != undefined) temp.disabled = true;
+          // fileList.push(temp);
+        }
+      } else {
+        alert("Could not submit assignment!");
+      }
+    });*/
+    console.log("A = ", a);
+    return a;
+    //} else alert("Please submit all the questions");
 
     // console.log("In uploadFile");
     // let file = document.getElementById("myFile").files;
@@ -96,11 +165,81 @@ const SubmissionPending = (props) => {
     //console.log(formData.entries);
   }
 
+  /************************* */ /*
+  async function submitAssignment(
+    student_id,
+    assignment_id,
+    subject_id,
+    aid,
+    n,
+    question_no,
+    question
+  ) {
+    let count = 1;
+    console.log("In submitAssignment");
+    let formData = new FormData();
+    // console.log(file);
+    let fileList = [];
+    let flag = true;
+    for (let i = 0; i < n; i++) {
+      let temp = document.getElementById(aid + "_" + i).files[0];
+      console.log(temp);
+      if (temp != undefined) formData.append(aid + "_" + i, temp);
+      // fileList.push(temp);
+      else {
+        flag = false;
+        break;
+      }
+    }
+    if (flag) {
+      // let files = document.getElementById(aid + "");
+      // console.log("fl...", fileList);
+      // console.log(files.files);
+      // formData.append("fileupload", fileList);
+      // formData.append("question_no", qno);
+      formData.append("aid", aid);
+      formData.append("n", n);
+      formData.append("assignment_id", assignment_id);
+      formData.append("student_id", student_id);
+      formData.append("subject_id", subject_id);
+      formData.append("submission_id", "63076a7b810d1312a3ddc61c");
+
+      formData.append("attempt", count + 1);
+      formData.append("question_no", question_no);
+      formData.append("question", question);
+      formData.append("points", 2);
+
+      console.log(formData);
+      let a = await fetch("/resubmit", {
+        method: "POST",
+        body: formData,
+      }).then((response, data) => {
+        console.log("Response in uploadFile....");
+        console.log(response);
+        console.log(data);
+        if (response.status == 200) {
+          alert("Assignment Submitted!");
+          for (let i = 0; i < n; i++) {
+            let temp = document.getElementById(aid + "_" + i);
+            console.log(temp);
+            if (temp != undefined) temp.disabled = true;
+            // fileList.push(temp);
+          }
+        } else {
+          alert("Could not submit assignment!");
+        }
+      });
+      console.log("A = ", a);
+      return a;
+    } else alert("Please submit all the questions");
+  }*/
+  /******************************* */
+
   function submitHandler(event) {
     event.preventDefault();
     console.log("abc");
     console.log(files);
-    console.log(link);
+    console.log(links);
     console.log(text);
     console.log("abc");
     /*if (question.status === "completed") reUploadFile();
@@ -109,7 +248,7 @@ const SubmissionPending = (props) => {
 
     setSubmit(true);
     setFiles([]);
-    setLink({ url: null, text: null });
+    setLinks([]);
     setText(null);
   }
 
@@ -152,9 +291,13 @@ const SubmissionPending = (props) => {
                 {modalType === "text" ? (
                   <Text close={closeModal} passText={getText} />
                 ) : modalType === "file" ? (
-                  <File close={closeModal} passFiles={getFiles} />
+                  <File
+                    close={closeModal}
+                    passFiles={getFiles}
+                    previousFiles={files}
+                  />
                 ) : (
-                  <Link close={closeModal} passLink={getLink} />
+                  <Link close={closeModal} passLinks={getLinks} />
                 )}
               </Modal>
               <div>
@@ -209,7 +352,7 @@ const SubmissionPending = (props) => {
                   type="submit"
                   className="submit-solution"
                   disabled={
-                    files.length === 0 && text === null && link.url === null
+                    files.length === 0 && text === null && links.length === 0
                       ? true
                       : false
                   }

@@ -25,6 +25,10 @@ const AssignmentItem = (props) => {
   }
   const percent = (completed * 100) / assignment.questions.length + "%";
 
+  function sendData(data) {
+    props.sendData(data);
+  }
+
   return (
     <div className="ass-item">
       <div className="ass-details">
@@ -51,7 +55,11 @@ const AssignmentItem = (props) => {
         </button>
       </div>
       {action === "close" && (
-        <QuestionSection questions={assignment.questions} />
+        <QuestionSection
+          questions={assignment.questions}
+          assignmentId={assignment.assignment_id}
+          sendData={sendData}
+        />
       )}
     </div>
   );

@@ -24,6 +24,9 @@ const QuesDetails = (props) => {
   function sendNotificationToChangeSection() {
     props.changeSectionNotify();
   }
+  function sendData(data) {
+    props.sendData(data);
+  }
 
   return (
     <div className="ques-details">
@@ -31,6 +34,8 @@ const QuesDetails = (props) => {
         <SubmissionPending
           question={question}
           changeSec={sendNotificationToChangeSection}
+          assignmentId={props.assignmentId}
+          sendData={sendData}
         />
       ) : status === "submitted" ? (
         <UnderEvaluation question={question} />

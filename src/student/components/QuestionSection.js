@@ -34,6 +34,10 @@ const QuestionSection = (props) => {
 
   console.log("rendered Questionsection" + quesOpened.question_no);
 
+  function sendData(data) {
+    props.sendData(data);
+  }
+
   function changeSection() {
     console.log("Notification recieved");
     setSolutionSection(!solutionSection);
@@ -56,6 +60,8 @@ const QuestionSection = (props) => {
           QuestionOpened={quesOpened}
           lastQues={questions.length}
           changeSectionNotify={changeSection}
+          assignmentId={props.assignmentId}
+          sendData={sendData}
         />
       </div>
     );

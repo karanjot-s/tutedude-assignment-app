@@ -13,7 +13,7 @@ const Delete = (props) => {
     });
     e.preventDefault();
   };
-
+  //("https://do4t98vdpdesj.cloudfront.net/");
   return (
     <div className={`del-modal ${success ? "success" : ""}`}>
       <div className="text-head">

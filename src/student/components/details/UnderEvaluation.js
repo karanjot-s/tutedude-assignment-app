@@ -4,7 +4,7 @@ import Modal from "react-modal";
 import Delete from "./ModalElements/Delete";
 import Edit from "./ModalElements/Edit";
 import NewButtons from "./ModalElements/NewButtons";
-import Link from "./ModalElements/Link";
+import NewLink from "./ModalElements/NewLink";
 import Text from "./ModalElements/Text";
 import NewFile from "./ModalElements/NewFile";
 
@@ -27,6 +27,7 @@ Modal.setAppElement("#root");
 const SubmissionPending = (props) => {
   const [modalIsOpen, setIsOpen] = React.useState(false);
   const [modalType, setModalType] = React.useState("delete");
+  const [editType, setEditType] = useState("file");
   function openModal(event) {
     //setModalType(event.target.name);
     setIsOpen(true);
@@ -99,9 +100,17 @@ const SubmissionPending = (props) => {
 
   /*****************getting updated data */
   const [file, setFile] = useState(null);
+  const [link, setLink] = useState(null);
   function getFile(file) {
     setFile(file);
-    setModalType("newFile");
+    console.log(file);
+    // setModalType("newFile");
+  }
+
+  function getLink(link) {
+    setLink(link);
+    //console.log(link);
+    // setModalType("newFile");
   }
 
   /*****************getting updated data */
@@ -119,18 +128,12 @@ const SubmissionPending = (props) => {
           <Delete close={closeModal} /*passText={getText}*/ />
         ) : modalType === "edit" ? (
           <Edit close={closeModal} proceed={changeToNewButtons} />
-        ) : modalType === "proceed" ? (
-          <NewButtons
-            close={closeModal}
-            setSolutionType={changeModalForSol}
-            sendFile={getFile}
-          />
-        ) : modalType === "newFile" ? (
-          <NewFile close={closeModal} filename={file.name} />
-        ) : modalType === "text" ? (
+        ) : modalType === "proceed" && editType == "file" ? (
+          <NewFile close={closeModal} sendFile={getFile} />
+        ) : modalType === "proceed" && editType == "text" ? (
           <Text close={closeModal} /*passText={getText}*/ />
         ) : (
-          <Link close={closeModal} /*passLink={getLink}*/ />
+          <NewLink close={closeModal} passLink={getLink} />
         )}
       </Modal>
       <h3>Question</h3>
@@ -161,7 +164,10 @@ const SubmissionPending = (props) => {
                     <div className="white-area-element">
                       <span>{fname}</span>
                       <section>
-                        <a href={sub.filelink[index]} target="_blank">
+                        <a
+                          href={`https://do4t98vdpdesj.cloudfront.net/${sub.filelink[index]}`}
+                          target="_blank"
+                        >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="24"
@@ -175,6 +181,7 @@ const SubmissionPending = (props) => {
                           className="edit-button"
                           onClick={(event) => {
                             setModalType("edit");
+                            setEditType("file");
                             openModal(event);
                           }}
                           name="edit"
@@ -224,7 +231,15 @@ const SubmissionPending = (props) => {
                       <path d="M12 21l-8-9h6v-12h4v12h6l-8 9zm9-1v2h-18v-2h-2v4h22v-4h-2z" />
                     </svg>
                   </a>
-                  <button className="edit-button">
+                  <button
+                    className="edit-button"
+                    onClick={(event) => {
+                      setModalType("edit");
+                      setEditType("text");
+                      openModal(event);
+                    }}
+                    name="edit"
+                  >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="24"
@@ -234,7 +249,14 @@ const SubmissionPending = (props) => {
                       <path d="M19.769 9.923l-12.642 12.639-7.127 1.438 1.438-7.128 12.641-12.64 5.69 5.691zm1.414-1.414l2.817-2.82-5.691-5.689-2.816 2.817 5.69 5.692z" />
                     </svg>
                   </button>
-                  <button className="delete-button">
+                  <button
+                    className="delete-button"
+                    onClick={(event) => {
+                      setModalType("delete");
+                      openModal(event);
+                    }}
+                    name="delete"
+                  >
                     <svg
                       width="24"
                       height="24"
@@ -263,7 +285,15 @@ const SubmissionPending = (props) => {
                             <path d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z" />
                           </svg>
                         </a>
-                        <button className="edit-button">
+                        <button
+                          className="edit-button"
+                          onClick={(event) => {
+                            setModalType("edit");
+                            setEditType("link");
+                            openModal(event);
+                          }}
+                          name="edit"
+                        >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="24"
@@ -273,7 +303,14 @@ const SubmissionPending = (props) => {
                             <path d="M19.769 9.923l-12.642 12.639-7.127 1.438 1.438-7.128 12.641-12.64 5.69 5.691zm1.414-1.414l2.817-2.82-5.691-5.689-2.816 2.817 5.69 5.692z" />
                           </svg>
                         </button>
-                        <button className="delete-button">
+                        <button
+                          className="delete-button"
+                          onClick={(event) => {
+                            setModalType("delete");
+                            openModal(event);
+                          }}
+                          name="delete"
+                        >
                           <svg
                             width="24"
                             height="24"
