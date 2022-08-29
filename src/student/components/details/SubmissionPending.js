@@ -40,7 +40,7 @@ const SubmissionPending = (props) => {
 
   const [submit, setSubmit] = useState(false);
   const [files, setFiles] = useState([]);
-  const [text, setText] = useState(null);
+  const [text, setText] = useState("");
   const [links, setLinks] = useState([]);
 
   //
@@ -48,7 +48,10 @@ const SubmissionPending = (props) => {
   useEffect(() => {
     //   setSolution("");
     setSubmit(false);
-  }, [props.question]);
+    setFiles([]);
+    setText("");
+    setLinks([]);
+  }, [props.question, props.question.status]);
 
   console.log("rendered submitsec" + question.question_no);
 
@@ -96,16 +99,10 @@ const SubmissionPending = (props) => {
       formData.append(aid + "_" + i, file);
     });
 
-    var linkText = [];
-    var linkUrl = [];
-    console.log(links);
     links.forEach((link, i) => {
-      console.log(link);
-      linkText.push();
+      formData.append("link", link.url);
+      formData.append("linkText", link.text);
     });
-
-    /*if (link.url !== null) formData.append("link", link.url);
-    if (link.text !== null) formData.append("linkText", link.text);*/
 
     if (text !== null) formData.append("text", text);
 
@@ -249,7 +246,7 @@ const SubmissionPending = (props) => {
     setSubmit(true);
     setFiles([]);
     setLinks([]);
-    setText(null);
+    setText("");
   }
 
   function viewSolutionButtonHandler() {
@@ -289,15 +286,25 @@ const SubmissionPending = (props) => {
                 contentLabel="Example Modal"
               >
                 {modalType === "text" ? (
-                  <Text close={closeModal} passText={getText} />
+                  <Text
+                    close={closeModal}
+                    passText={getText}
+                    previousText={text}
+                  />
                 ) : modalType === "file" ? (
                   <File
                     close={closeModal}
                     passFiles={getFiles}
                     previousFiles={files}
                   />
+                ) : modalType === "link" ? (
+                  <Link
+                    close={closeModal}
+                    passLinks={getLinks}
+                    previousLinks={links}
+                  />
                 ) : (
-                  <Link close={closeModal} passLinks={getLinks} />
+                  <></>
                 )}
               </Modal>
               <div>

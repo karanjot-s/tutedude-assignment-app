@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import "./modalElements.css";
 
-const Link = (props) => {
-  const [text, setText] = useState("");
+const Text = (props) => {
+  const [text, setText] = useState(props.previousText);
 
   const handleChange = (e) => {
     setText(e.target.value);
@@ -12,18 +12,6 @@ const Link = (props) => {
     e.preventDefault();
     props.passText(text);
     props.close();
-    // if(password!=confPassword)
-    // {
-    //   // if 'password' and 'confirm password'
-    //   // does not match.
-    //   alert("password Not Match");
-    // }
-    // else{
-    //   // display alert box with user
-    //   // 'name' and 'email' details .
-    //   alert('A form was submitted with Name :"' + name +
-    //   '" ,Age :"'+age +'" and Email :"' + email + '"');
-    // }
   };
 
   return (
@@ -42,7 +30,7 @@ const Link = (props) => {
         <textarea
           rows={8}
           name="text"
-          value={text.url}
+          value={text}
           placeholder="type or paste your text here"
           required
           onChange={(e) => {
@@ -55,4 +43,4 @@ const Link = (props) => {
     </div>
   );
 };
-export default Link;
+export default Text;

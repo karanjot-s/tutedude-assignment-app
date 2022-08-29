@@ -14,7 +14,7 @@ const Link = (props) => {
     });
   };
 
-  const [links, setLinks] = useState([]);
+  const [links, setLinks] = useState(props.previousLinks);
 
   const handleLinkInput = (e) => {
     setLinks((prevLinks) => {
