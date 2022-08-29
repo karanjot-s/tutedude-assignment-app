@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Modal from "react-modal";
 
 import File from "./ModalElements/File";
 import Link from "./ModalElements/Link";
 import Text from "./ModalElements/Text";
+import GlobalState from "../../../contexts/GlobalState";
 import { ids } from "../../pages/AssignmentsPage";
 
 Modal.defaultStyles.overlay.backgroundColor = "rgba(74, 73, 73, 0.7)";
@@ -21,8 +22,9 @@ const customStyles = {
 };
 Modal.setAppElement("#root");
 
-let student_id = prompt("student_id");
 const SubmissionPending = (props) => {
+  const [ids, setIds] = useContext(GlobalState);
+
   const [modalIsOpen, setIsOpen] = React.useState(false);
   const [modalType, setModalType] = React.useState("file");
   function openModal(event) {
@@ -85,8 +87,8 @@ const SubmissionPending = (props) => {
 
     const aid = 123;
     formData.append("assignment_id", props.assignmentId);
-    formData.append("student_id", student_id);
-    formData.append("subject_id", 1);
+    formData.append("student_id", ids.student_id);
+    formData.append("subject_id", ids.subject_id);
     //formData.append("submission_id", "63076a7b810d1312a3ddc61c");
     formData.append("attempt", 1);
     formData.append("question_no", question.question_no);

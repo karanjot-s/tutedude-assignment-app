@@ -14,7 +14,7 @@ const NavLinks = (props) => {
   return (
     <ul className="nav-links">
       <li>
-        <NavLink to={`/`}>My Assignments</NavLink>
+        <NavLink to={`/assignment`}>My Assignments</NavLink>
       </li>
       <li>
         <NavLink to="/mentor">Chat with Mentor</NavLink>

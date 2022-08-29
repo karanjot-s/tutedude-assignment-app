@@ -1,10 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import $ from "jquery";
 
 import AssignmentList from "../components/AssignmentList";
+import GlobalState from "../../contexts/GlobalState";
 import "./AssignmentPage.css";
 
 const AssignmestsPage = () => {
+  const [ids, setIds] = useContext(GlobalState);
+  console.log(ids);
+
   //const domain=http://tutedude.herokuapp.com
   const url = "https://assignment-backend-tutedude.herokuapp.com";
 
@@ -214,7 +218,7 @@ const AssignmestsPage = () => {
   useEffect(
     () => {
       $.ajax({
-        url: "https://assignment-backend-tutedude.herokuapp.com/assignment/view?subject_id=1&student_id=31",
+        url: `https://assignment-backend-tutedude.herokuapp.com/assignment/view?subject_id=${ids.subject_id}&student_id=${ids.student_id}`,
         type: "get",
         data: { student_id: 12, subject_id: 1 },
         processData: false,
@@ -238,7 +242,7 @@ const AssignmestsPage = () => {
   function sendData(data) {
     console.log("hjk");
     $.ajax({
-      url: "https://assignment-backend-tutedude.herokuapp.com/assignment/view?subject_id=1&student_id=31",
+      url: `https://assignment-backend-tutedude.herokuapp.com/assignment/view?subject_id=${ids.subject_id}&student_id=${ids.student_id}`,
       type: "get",
       data: { student_id: 12, subject_id: 1 },
       processData: false,
