@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
 
-import Delete from "./ModalElements/Delete";
-import Edit from "./ModalElements/Edit";
-import NewButtons from "./ModalElements/NewButtons";
-import NewLink from "./ModalElements/NewLink";
-import Text from "./ModalElements/Text";
-import NewFile from "./ModalElements/NewFile";
+// import Delete from "./ModalElements/Delete";
+// import Edit from "./ModalElements/Edit";
+// import NewButtons from "./ModalElements/NewButtons";
+// import NewLink from "./ModalElements/NewLink";
+// import Text from "./ModalElements/Text";
+// import NewFile from "./ModalElements/NewFile";
 
 /************modal**************/
 Modal.defaultStyles.overlay.backgroundColor = "rgba(74, 73, 73, 0.7)";
