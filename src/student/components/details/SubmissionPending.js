@@ -5,7 +5,7 @@ import File from "./ModalElements/File";
 import Link from "./ModalElements/Link";
 import Text from "./ModalElements/Text";
 import GlobalState from "../../../contexts/GlobalState";
-import { ids } from "../../pages/AssignmentsPage";
+import Delete from "./ModalElements/Delete";
 
 Modal.defaultStyles.overlay.backgroundColor = "rgba(74, 73, 73, 0.7)";
 const customStyles = {
@@ -26,9 +26,15 @@ const SubmissionPending = (props) => {
   const [ids, setIds] = useContext(GlobalState);
 
   const [modalIsOpen, setIsOpen] = React.useState(false);
-  const [modalType, setModalType] = React.useState("file");
+  const [modalType, setModalType] = React.useState("");
+  const [deleteType, setDeleteType] = useState(null);
+  const [deleteFile, setDeleteFile] = useState({
+    fname: "",
+    flink: "",
+    index: null,
+  });
+
   function openModal(event) {
-    setModalType(event.target.value);
     setIsOpen(true);
   }
   function afterOpenModal() {
@@ -39,6 +45,36 @@ const SubmissionPending = (props) => {
   }
 
   var question = props.question;
+
+  /**********under evaluation */
+  let sub;
+  if (question.submissions)
+    sub = question.submissions[question.submissions.length - 1];
+  else sub = null;
+
+  if (question.submissions) {
+    var dateObj = new Date(sub.updatedAt);
+    var month = dateObj.getUTCMonth(); //months from 0-11
+    const monthNames = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ];
+    var day = dateObj.getUTCDate();
+    var year = dateObj.getUTCFullYear();
+    var newdate = day + " " + monthNames[month] + ", " + year;
+  } else newdate = "-";
+
+  /************************* */
 
   const [submit, setSubmit] = useState(false);
   const [files, setFiles] = useState([]);
@@ -129,12 +165,28 @@ const SubmissionPending = (props) => {
       body: formData,
     })
       .then((response) => response.json())
-      .then((data) => console.log(data))
-      .then((response, data) => {
-        console.log(response);
+      .then((data) => {
+        console.log("data");
         console.log(data);
-        props.sendData(data);
+        if (data.success === true) {
+          setSubmit(true);
+          props.sendData(data);
+        } else {
+          openModal();
+        }
       });
+    /*      .then((response, data) => {
+        console.log("response");
+        console.log(response);
+        console.log("data");
+        console.log(data);
+        if (response.success === true) {
+          setSubmit(true);
+          props.sendData(data);
+        } else {
+          openModal();
+        }
+      });*/
 
     /*.then((response, data) => {
       console.log("Response in uploadFile....");
@@ -236,16 +288,17 @@ const SubmissionPending = (props) => {
 
   function submitHandler(event) {
     event.preventDefault();
-    console.log("abc");
+    console.log("files");
     console.log(files);
+    console.log("links");
     console.log(links);
+    console.log("text");
     console.log(text);
     console.log("abc");
     /*if (question.status === "completed") reUploadFile();
     else */
     uploadFile();
 
-    setSubmit(true);
     setFiles([]);
     setLinks([]);
     setText("");
@@ -257,12 +310,37 @@ const SubmissionPending = (props) => {
 
   return (
     <div className="sub-pending-sec">
+      <Modal
+        isOpen={modalIsOpen}
+        onAfterOpen={afterOpenModal}
+        onRequestClose={closeModal}
+        style={customStyles}
+        contentLabel="Example Modal"
+      >
+        {modalType === "text" ? (
+          <Text close={closeModal} passText={getText} previousText={text} />
+        ) : modalType === "file" ? (
+          <File close={closeModal} passFiles={getFiles} previousFiles={files} />
+        ) : modalType === "link" ? (
+          <Link close={closeModal} passLinks={getLinks} previousLinks={links} />
+        ) : modalType === "delete" ? (
+          <Delete
+            close={closeModal}
+            fileType={deleteType}
+            fileData={deleteFile}
+            assignmentId={props.assignmentId}
+            question={question}
+          />
+        ) : (
+          <div>error</div>
+        )}
+      </Modal>
       {!submit && (
         <div className="before-submit">
           <div>
             <h3>Question</h3>
             <p>{question.question}</p>
-            {question.instructions && (
+            {question.instructions && question.status === "pending" && (
               <div>
                 <h3>Instructions</h3>
                 <p>{question.instructions}</p>
@@ -276,43 +354,153 @@ const SubmissionPending = (props) => {
               </div>
             )}
           </div>
+          {question.status === "submitted" && (
+            <div className="flex-column">
+              <h3>
+                Solution You Submitted <span>(updated on {newdate})</span>
+              </h3>
+              <div className="white-area">
+                {sub !== null && sub.filename && (
+                  <>
+                    {sub.filename.map((fname, index) => (
+                      <React.Fragment key={index}>
+                        <div className="white-area-element">
+                          <span>{fname}</span>
+                          <section>
+                            <a
+                              href={`https://do4t98vdpdesj.cloudfront.net/${sub.filelink[index]}`}
+                              target="_blank"
+                            >
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="24"
+                                height="24"
+                                viewBox="0 0 24 24"
+                              >
+                                <path d="M12 21l-8-9h6v-12h4v12h6l-8 9zm9-1v2h-18v-2h-2v4h22v-4h-2z" />
+                              </svg>
+                            </a>
+
+                            <button
+                              className="delete-button"
+                              onClick={(event) => {
+                                setModalType("delete");
+                                setDeleteFile((prev) => ({
+                                  ...prev,
+                                  fname: fname,
+                                  flink: `https://do4t98vdpdesj.cloudfront.net/${sub.filelink[index]}`,
+                                  index: index,
+                                }));
+                                setDeleteType("file");
+                                openModal(event);
+                              }}
+                              name="delete"
+                            >
+                              <svg
+                                width="24"
+                                height="24"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path d="M19 24h-14c-1.104 0-2-.896-2-2v-16h18v16c0 1.104-.896 2-2 2m3-19h-20v-2h6v-1.5c0-.827.673-1.5 1.5-1.5h5c.825 0 1.5.671 1.5 1.5v1.5h6v2zm-12-2h4v-1h-4v1z" />
+                              </svg>
+                            </button>
+                          </section>
+                        </div>
+                      </React.Fragment>
+                    ))}
+                  </>
+                )}
+                {sub !== null && sub.text && (
+                  <div className="white-area-element">
+                    <span>{sub.text.slice(0, 20)}</span>
+                    <section>
+                      <a href="{}">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                        >
+                          <path d="M12 21l-8-9h6v-12h4v12h6l-8 9zm9-1v2h-18v-2h-2v4h22v-4h-2z" />
+                        </svg>
+                      </a>
+
+                      <button
+                        className="delete-button"
+                        onClick={(event) => {
+                          setModalType("delete");
+                          openModal(event);
+                        }}
+                        name="delete"
+                      >
+                        <svg
+                          width="24"
+                          height="24"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path d="M19 24h-14c-1.104 0-2-.896-2-2v-16h18v16c0 1.104-.896 2-2 2m3-19h-20v-2h6v-1.5c0-.827.673-1.5 1.5-1.5h5c.825 0 1.5.671 1.5 1.5v1.5h6v2zm-12-2h4v-1h-4v1z" />
+                        </svg>
+                      </button>
+                    </section>
+                  </div>
+                )}
+                {sub !== null && sub.link && (
+                  <>
+                    {sub.link.map((l, index) => (
+                      <React.Fragment key={index}>
+                        <div className="white-area-element">
+                          <span>{l}</span>
+                          <section>
+                            <a href={l}>
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="24"
+                                height="24"
+                                viewBox="0 0 24 24"
+                              >
+                                <path d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z" />
+                              </svg>
+                            </a>
+
+                            <button
+                              className="delete-button"
+                              onClick={(event) => {
+                                setModalType("delete");
+                                openModal(event);
+                              }}
+                              name="delete"
+                            >
+                              <svg
+                                width="24"
+                                height="24"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path d="M19 24h-14c-1.104 0-2-.896-2-2v-16h18v16c0 1.104-.896 2-2 2m3-19h-20v-2h6v-1.5c0-.827.673-1.5 1.5-1.5h5c.825 0 1.5.671 1.5 1.5v1.5h6v2zm-12-2h4v-1h-4v1z" />
+                              </svg>
+                            </button>
+                          </section>
+                        </div>
+                      </React.Fragment>
+                    ))}
+                  </>
+                )}
+              </div>
+              <p>
+                <strong>Note:</strong>the file has been submitted Successfully
+              </p>
+            </div>
+          )}
 
           <div>
             <h3>Submit Solution as</h3>
             <div className="formButtons">
-              <Modal
-                isOpen={modalIsOpen}
-                onAfterOpen={afterOpenModal}
-                onRequestClose={closeModal}
-                style={customStyles}
-                contentLabel="Example Modal"
-              >
-                {modalType === "text" ? (
-                  <Text
-                    close={closeModal}
-                    passText={getText}
-                    previousText={text}
-                  />
-                ) : modalType === "file" ? (
-                  <File
-                    close={closeModal}
-                    passFiles={getFiles}
-                    previousFiles={files}
-                  />
-                ) : modalType === "link" ? (
-                  <Link
-                    close={closeModal}
-                    passLinks={getLinks}
-                    previousLinks={links}
-                  />
-                ) : (
-                  <></>
-                )}
-              </Modal>
               <div>
                 <button
                   className="attach-text"
-                  onClick={openModal}
+                  onClick={(event) => {
+                    setModalType("text");
+                    openModal(event);
+                  }}
                   value="text"
                 >
                   <svg
@@ -327,7 +515,10 @@ const SubmissionPending = (props) => {
                 </button>
                 <button
                   className="attach-link"
-                  onClick={openModal}
+                  onClick={(event) => {
+                    setModalType("link");
+                    openModal(event);
+                  }}
                   value="link"
                 >
                   <svg
@@ -342,7 +533,10 @@ const SubmissionPending = (props) => {
                 </button>
                 <button
                   className="attach-file"
-                  onClick={openModal}
+                  onClick={(event) => {
+                    setModalType("file");
+                    openModal(event);
+                  }}
                   value="file"
                 >
                   <svg
@@ -361,7 +555,7 @@ const SubmissionPending = (props) => {
                   type="submit"
                   className="submit-solution"
                   disabled={
-                    files.length === 0 && text === null && links.length === 0
+                    files.length === 0 || text === null || links.length === 0
                       ? true
                       : false
                   }

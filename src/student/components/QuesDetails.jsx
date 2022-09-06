@@ -38,7 +38,7 @@ const QuesDetails = (props) => {
           sendData={sendData}
         />
       ) : status === "submitted" ? (
-        <UnderEvaluation question={question} />
+        <UnderEvaluation question={question} reSubmit={changeToPending} />
       ) : (
         <Completed question={question} reSubmit={changeToPending} />
       )}

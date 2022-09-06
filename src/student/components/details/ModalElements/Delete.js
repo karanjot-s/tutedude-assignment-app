@@ -1,17 +1,64 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "./modalElements.css";
+import GlobalState from "../../../../contexts/GlobalState";
 
 function fakeRequest() {
   return new Promise((resolve) => setTimeout(() => resolve(), 1000));
 }
+
+// /submission/file
+// /submission/link
+// /submission/text
+// DELETE method
+
 const Delete = (props) => {
+  const [ids, setIds] = useContext(GlobalState);
   const [success, setSuccess] = useState(false);
+  var question = props.question;
+
+  async function deleteFile() {
+    let formData = new FormData();
+
+    const aid = 123;
+    formData.append("assignment_id", props.assignmentId);
+    formData.append("student_id", ids.student_id);
+    formData.append("subject_id", ids.subject_id);
+    formData.append("submission_id", question.submission_id);
+    formData.append("question_no", question.question_no);
+    formData.append("file_name", props.fileData.fname);
+    formData.append("file_link", props.fileData.flink);
+    formData.append("index", props.fileData.index);
+    formData.append("list_id", question.question.ubmissions._id);
+    for (var key of formData.entries()) {
+      console.log(key[0]);
+      console.log(key[1]);
+    }
+    const url = "https://assignment-backend-tutedude.herokuapp.com";
+    let a = await fetch(url, {
+      method: "POST",
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("data");
+        console.log(data);
+        if (data.success === true) {
+          setSuccess(true);
+          // props.sendData(data);
+        } else {
+          alert("error");
+        }
+      });
+  }
+
   const handleSubmit = (e) => {
-    setSuccess(true);
+    e.preventDefault();
+    if (props.fileType === "file") {
+      deleteFile();
+    }
     fakeRequest().then(() => {
       props.close();
     });
-    e.preventDefault();
   };
   //("https://do4t98vdpdesj.cloudfront.net/");
   return (

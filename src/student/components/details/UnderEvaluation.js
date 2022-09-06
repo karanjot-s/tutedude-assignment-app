@@ -24,7 +24,7 @@ const customStyles = {
 };
 Modal.setAppElement("#root");
 
-const SubmissionPending = (props) => {
+const UnderEvaluation = (props) => {
   const [modalIsOpen, setIsOpen] = React.useState(false);
   const [modalType, setModalType] = React.useState("delete");
   const [editType, setEditType] = useState("file");
@@ -65,11 +65,15 @@ const SubmissionPending = (props) => {
   //   setSolution(event.target.value);
   // }
 
+  useEffect(() => {
+    setView(false);
+  }, [props.question]);
+
   function showSolution(event) {
     setView(true);
   }
 
-  let sub;
+  /*let sub;
   if (question.submissions)
     sub = question.submissions[question.submissions.length - 1];
   else sub = null;
@@ -96,9 +100,9 @@ const SubmissionPending = (props) => {
     var day = dateObj.getUTCDate();
     var year = dateObj.getUTCFullYear();
     var newdate = day + " " + monthNames[month] + ", " + year;
-  } else newdate = "-";
+  } else newdate = "-";*/
 
-  /*****************getting updated data */
+  /*****************getting updated data 
   const [file, setFile] = useState(null);
   const [link, setLink] = useState(null);
   function getFile(file) {
@@ -111,13 +115,17 @@ const SubmissionPending = (props) => {
     setLink(link);
     //console.log(link);
     // setModalType("newFile");
-  }
+  }*/
 
   /*****************getting updated data */
 
+  function changeToSubPending(event) {
+    props.reSubmit(true);
+  }
+
   return (
     <div className="sub-pending-sec">
-      <Modal
+      {/* <Modal
         isOpen={modalIsOpen}
         onAfterOpen={afterOpenModal}
         onRequestClose={closeModal}
@@ -125,34 +133,34 @@ const SubmissionPending = (props) => {
         contentLabel="Example Modal"
       >
         {modalType === "delete" ? (
-          <Delete close={closeModal} /*passText={getText}*/ />
+          <Delete close={closeModal}  />
         ) : modalType === "edit" ? (
           <Edit close={closeModal} proceed={changeToNewButtons} />
         ) : modalType === "proceed" && editType == "file" ? (
           <NewFile close={closeModal} sendFile={getFile} />
         ) : modalType === "proceed" && editType == "text" ? (
-          <Text close={closeModal} /*passText={getText}*/ />
+          <Text close={closeModal}  />
         ) : (
           <NewLink close={closeModal} passLink={getLink} />
         )}
-      </Modal>
+      </Modal> */}
       <h3>Question</h3>
       <p>{question.question}</p>
 
-      {!viewSolButton && (
-        <div className="flex-column">
-          <h3>Status of Submission</h3>
+      {/* {!viewSolButton && ( */}
+      <div className="flex-column">
+        <h3>Status of Submission</h3>
 
-          <div className="white-area">status</div>
-          <div className="button-flex">
-            <button onClick={showSolution} className="button-flex">
-              View you solution
-            </button>
-          </div>
+        <div className="white-area">status</div>
+        <div className="button-flex">
+          <button onClick={changeToSubPending} className="button-flex">
+            View you solution
+          </button>
         </div>
-      )}
-      {viewSolButton && (
-        <div className="flex-column">
+      </div>
+      {/* )}
+      {viewSolButton && ( 
+          <div className="flex-column">
           <h3>
             Solution You Submitted <span>(updated on {newdate})</span>
           </h3>
@@ -219,7 +227,7 @@ const SubmissionPending = (props) => {
             )}
             {sub !== null && sub.text && (
               <div className="white-area-element">
-                <span>{sub.text}</span>
+                <span>{sub.text.slice(0, 20)}</span>
                 <section>
                   <a href="{}">
                     <svg
@@ -330,8 +338,9 @@ const SubmissionPending = (props) => {
             <strong>Note:</strong>the file has been submitted Successfully
           </p>
         </div>
-      )}
+        <div></div>
+      )} */}
     </div>
   );
 };
-export default SubmissionPending;
+export default UnderEvaluation;

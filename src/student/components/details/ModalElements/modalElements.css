@@ -17,7 +17,11 @@
   justify-content: center;
   gap: 1rem;
 }
-.link-modal input {
+.url {
+  margin-bottom: 0.5rem;
+}
+.url input,
+.text-of-link input {
   border: none;
   background: #e4e4e4;
   width: 80%;

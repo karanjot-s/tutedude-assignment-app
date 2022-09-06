@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-const SubmissionPending = (props) => {
+const Completed = (props) => {
   var question = props.question;
   const [resubmit, setResubmit] = useState(false);
   const [view, setView] = useState("Mentor's Feedback");
@@ -137,4 +137,4 @@ const SubmissionPending = (props) => {
     </React.Fragment>
   );
 };
-export default SubmissionPending;
+export default Completed;

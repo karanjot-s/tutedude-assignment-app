@@ -17,6 +17,7 @@ const Link = (props) => {
   const [links, setLinks] = useState(props.previousLinks);
 
   const handleLinkInput = (e) => {
+    e.preventDefault();
     setLinks((prevLinks) => {
       return [...prevLinks, link];
     });
@@ -109,9 +110,13 @@ const Link = (props) => {
             />
           </div>
           <div className="file-buttons">
-            <div className="file-upload-button" onClick={handleLinkInput}>
-              {links.length === 0 ? "Add link" : "Add more links"}
-            </div>
+            <button
+              className="file-upload-button"
+              onClick={handleLinkInput}
+              disabled={link.text === "" || link.url === "" ? true : false}
+            >
+              Add this link
+            </button>
 
             <button
               type="submit"
