@@ -27,12 +27,6 @@ const SubmissionPending = (props) => {
 
   const [modalIsOpen, setIsOpen] = React.useState(false);
   const [modalType, setModalType] = React.useState("");
-  const [deleteType, setDeleteType] = useState(null);
-  const [deleteFile, setDeleteFile] = useState({
-    fname: "",
-    flink: "",
-    index: null,
-  });
 
   function openModal(event) {
     setIsOpen(true);
@@ -47,6 +41,19 @@ const SubmissionPending = (props) => {
   var question = props.question;
 
   /**********under evaluation */
+  const [deleteType, setDeleteType] = useState(null);
+  const [deleteFile, setDeleteFile] = useState({
+    fname: "",
+    flink: "",
+    index: null,
+  });
+  const [deleteLink, setDeleteLink] = useState({
+    ltext: "",
+    link: "",
+    index: null,
+  });
+  const [deleteText, setDeleteText] = useState(null);
+
   let sub;
   if (question.submissions)
     sub = question.submissions[question.submissions.length - 1];
@@ -81,7 +88,7 @@ const SubmissionPending = (props) => {
   const [text, setText] = useState("");
   const [links, setLinks] = useState([]);
 
-  //
+  //resetting submit status
 
   useEffect(() => {
     //   setSolution("");
@@ -109,15 +116,6 @@ const SubmissionPending = (props) => {
     setText(text);
   }
 
-  // let formData = new FormData();
-  // formData.append("username", "Chris");
-  // formData.append("username", "Chris");
-  // formData.append("username", "Chris");
-  // formData.append("username", "Chris");
-  // for (var key of formData.entries()) {
-  //   console.log(key[0] + ", " + key[1]);
-  // }
-  //console.log(Array.from(formData.keys()).length);
   async function uploadFile() {
     let formData = new FormData();
 
@@ -326,10 +324,13 @@ const SubmissionPending = (props) => {
         ) : modalType === "delete" ? (
           <Delete
             close={closeModal}
-            fileType={deleteType}
-            fileData={deleteFile}
+            deleteType={deleteType}
+            deleteFile={deleteFile}
+            deleteLink={deleteLink}
+            deleteText={deleteText}
             assignmentId={props.assignmentId}
             question={question}
+            sendData={props.sendData}
           />
         ) : (
           <div>error</div>
@@ -429,6 +430,8 @@ const SubmissionPending = (props) => {
                         className="delete-button"
                         onClick={(event) => {
                           setModalType("delete");
+                          setDeleteText(sub.text);
+                          setDeleteType("text");
                           openModal(event);
                         }}
                         name="delete"
@@ -449,7 +452,9 @@ const SubmissionPending = (props) => {
                     {sub.link.map((l, index) => (
                       <React.Fragment key={index}>
                         <div className="white-area-element">
-                          <span>{l}</span>
+                          <span>
+                            {l.length > 30 ? l.slice(0, 30) + "..." : l}
+                          </span>
                           <section>
                             <a href={l}>
                               <svg
@@ -466,6 +471,13 @@ const SubmissionPending = (props) => {
                               className="delete-button"
                               onClick={(event) => {
                                 setModalType("delete");
+                                setDeleteLink((prev) => ({
+                                  ...prev,
+                                  ltext: sub.linkText,
+                                  flink: l,
+                                  index: index,
+                                }));
+                                setDeleteType("link");
                                 openModal(event);
                               }}
                               name="delete"
@@ -555,7 +567,7 @@ const SubmissionPending = (props) => {
                   type="submit"
                   className="submit-solution"
                   disabled={
-                    files.length === 0 || text === null || links.length === 0
+                    files.length === 0 && text === null && links.length === 0
                       ? true
                       : false
                   }

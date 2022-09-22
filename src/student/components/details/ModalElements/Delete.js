@@ -25,17 +25,27 @@ const Delete = (props) => {
     formData.append("subject_id", ids.subject_id);
     formData.append("submission_id", question.submission_id);
     formData.append("question_no", question.question_no);
-    formData.append("file_name", props.fileData.fname);
-    formData.append("file_link", props.fileData.flink);
-    formData.append("index", props.fileData.index);
-    formData.append("list_id", question.question.ubmissions._id);
+    formData.append("list_id", question.submissions._id);
+
+    if (props.deleteType === "file") {
+      formData.append("file_name", props.deleteFile.fname);
+      formData.append("file_link", props.deleteFile.flink);
+      formData.append("index", props.deleteFile.index);
+    } else if (props.deleteType === "link") {
+      formData.append("link", props.deleteLink.ltext);
+      formData.append("link_text", props.deleteLink.link);
+      formData.append("index", props.deleteLink.index);
+    } else if (props.deleteType === "text") {
+      formData.append("text", props.deleteText);
+    }
+
     for (var key of formData.entries()) {
       console.log(key[0]);
       console.log(key[1]);
     }
-    const url = "https://assignment-backend-tutedude.herokuapp.com";
+    /* const url = "https://assignment-backend-tutedude.herokuapp.com";
     let a = await fetch(url, {
-      method: "POST",
+      method: "DELETE",
       body: formData,
     })
       .then((response) => response.json())
@@ -44,18 +54,17 @@ const Delete = (props) => {
         console.log(data);
         if (data.success === true) {
           setSuccess(true);
-          // props.sendData(data);
         } else {
           alert("error");
         }
-      });
+      });*/
+    props.sendData();
   }
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (props.fileType === "file") {
-      deleteFile();
-    }
+    deleteFile();
+
     fakeRequest().then(() => {
       props.close();
     });
