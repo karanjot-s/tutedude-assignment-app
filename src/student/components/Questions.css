@@ -173,6 +173,8 @@ h3 span {
 
 .white-area span {
   color: #282828;
+  width: 70%;
+  text-align: left;
 }
 .flex-column {
   display: flex;

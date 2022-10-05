@@ -25,8 +25,9 @@ Modal.setAppElement("#root");
 const SubmissionPending = (props) => {
   const [ids, setIds] = useContext(GlobalState);
 
-  const [modalIsOpen, setIsOpen] = React.useState(false);
-  const [modalType, setModalType] = React.useState("");
+  const [modalIsOpen, setIsOpen] = useState(false);
+  const [modalType, setModalType] = useState("");
+  const [modalText, setModalText] = useState("");
 
   function openModal(event) {
     setIsOpen(true);
@@ -333,7 +334,7 @@ const SubmissionPending = (props) => {
             sendData={props.sendData}
           />
         ) : modalType === "viewText" ? (
-          <div>abc</div>
+          <div>{modalText}</div>
         ) : (
           <div>error</div>
         )}
@@ -417,9 +418,10 @@ const SubmissionPending = (props) => {
                   <div className="white-area-element">
                     <span>{sub.text.slice(0, 20)}</span>
                     <section>
-                      <button
+                      <span
                         onClick={(event) => {
-                          setDeleteType("viewText");
+                          setModalText(sub.text);
+                          setModalType("viewText");
                           openModal(event);
                         }}
                       >
@@ -429,9 +431,12 @@ const SubmissionPending = (props) => {
                           height="24"
                           viewBox="0 0 24 24"
                         >
-                          <path d="M12 21l-8-9h6v-12h4v12h6l-8 9zm9-1v2h-18v-2h-2v4h22v-4h-2z" />
+                          <path
+                            d="m22 5c0-.478-.379-1-1-1h-18c-.62 0-1 .519-1 1v14c0 .621.52 1 1 1h18c.478 0 1-.379 1-1zm-1.5 13.5h-17v-13h17zm-6.065-9.978-5.917 5.921v-1.243c0-.414-.336-.75-.75-.75-.415 0-.75.336-.75.75v3.05c0 .414.335.75.75.75h3.033c.414 0 .75-.336.75-.75s-.336-.75-.75-.75h-1.219l5.918-5.922v1.244c0 .414.336.75.75.75s.75-.336.75-.75c0-.715 0-2.335 0-3.05 0-.414-.336-.75-.75-.75-.715 0-2.318 0-3.033 0-.414 0-.75.336-.75.75s.336.75.75.75z"
+                            fill-rule="nonzero"
+                          />
                         </svg>
-                      </button>
+                      </span>
 
                       <button
                         className="delete-button"
