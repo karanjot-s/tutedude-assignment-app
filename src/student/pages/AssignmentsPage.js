@@ -217,6 +217,33 @@ const AssignmestsPage = () => {
   /**/ const [assignments, setAssignments] = useState([]);
   useEffect(
     () => {
+      if (ids.subject_id !== null && ids.student_id !== null) {
+        $.ajax({
+          url: `https://assignment-backend-tutedude.herokuapp.com/assignment/view?subject_id=${ids.subject_id}&student_id=${ids.student_id}`,
+          type: "get",
+          data: { student_id: 12, subject_id: 1 },
+          processData: false,
+          success: function (data, textStatus, jQxhr) {
+            console.log(data);
+            setAssignments(data.data);
+          },
+          error: function (jqXhr, textStatus, errorThrown) {
+            console.log(errorThrown);
+          },
+        }).then(() => {
+          const el = document.querySelector(".loader-container");
+          if (el) {
+            setLoading(!isLoading);
+          }
+        });
+      }
+    }, // eslint-disable-next-line
+    []
+  ); /**/
+
+  function sendData(data) {
+    console.log("hjk");
+    if (ids.subject_id !== null && ids.student_id !== null) {
       $.ajax({
         url: `https://assignment-backend-tutedude.herokuapp.com/assignment/view?subject_id=${ids.subject_id}&student_id=${ids.student_id}`,
         type: "get",
@@ -235,30 +262,7 @@ const AssignmestsPage = () => {
           setLoading(!isLoading);
         }
       });
-    }, // eslint-disable-next-line
-    []
-  ); /**/
-
-  function sendData(data) {
-    console.log("hjk");
-    $.ajax({
-      url: `https://assignment-backend-tutedude.herokuapp.com/assignment/view?subject_id=${ids.subject_id}&student_id=${ids.student_id}`,
-      type: "get",
-      data: { student_id: 12, subject_id: 1 },
-      processData: false,
-      success: function (data, textStatus, jQxhr) {
-        console.log(data);
-        setAssignments(data.data);
-      },
-      error: function (jqXhr, textStatus, errorThrown) {
-        console.log(errorThrown);
-      },
-    }).then(() => {
-      const el = document.querySelector(".loader-container");
-      if (el) {
-        setLoading(!isLoading);
-      }
-    });
+    }
   }
 
   // const ids = {

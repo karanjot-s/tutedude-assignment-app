@@ -332,6 +332,8 @@ const SubmissionPending = (props) => {
             question={question}
             sendData={props.sendData}
           />
+        ) : modalType === "viewText" ? (
+          <div>abc</div>
         ) : (
           <div>error</div>
         )}
@@ -389,7 +391,7 @@ const SubmissionPending = (props) => {
                                 setDeleteFile((prev) => ({
                                   ...prev,
                                   fname: fname,
-                                  flink: `https://do4t98vdpdesj.cloudfront.net/${sub.filelink[index]}`,
+                                  flink: sub.filelink[index],
                                   index: index,
                                 }));
                                 setDeleteType("file");
@@ -415,7 +417,12 @@ const SubmissionPending = (props) => {
                   <div className="white-area-element">
                     <span>{sub.text.slice(0, 20)}</span>
                     <section>
-                      <a href="{}">
+                      <button
+                        onClick={(event) => {
+                          setDeleteType("viewText");
+                          openModal(event);
+                        }}
+                      >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           width="24"
@@ -424,7 +431,7 @@ const SubmissionPending = (props) => {
                         >
                           <path d="M12 21l-8-9h6v-12h4v12h6l-8 9zm9-1v2h-18v-2h-2v4h22v-4h-2z" />
                         </svg>
-                      </a>
+                      </button>
 
                       <button
                         className="delete-button"

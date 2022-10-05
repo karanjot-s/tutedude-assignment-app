@@ -14,8 +14,10 @@ function fakeRequest() {
 const Delete = (props) => {
   const [ids, setIds] = useContext(GlobalState);
   const [success, setSuccess] = useState(false);
+
   var question = props.question;
 
+  console.log(question.submissions[question.submissions.length - 1]._id);
   async function deleteFile() {
     let formData = new FormData();
 
@@ -25,7 +27,10 @@ const Delete = (props) => {
     formData.append("subject_id", ids.subject_id);
     formData.append("submission_id", question.submission_id);
     formData.append("question_no", question.question_no);
-    formData.append("list_id", question.submissions._id);
+    formData.append(
+      "list_id",
+      question.submissions[question.submissions.length - 1]._id
+    );
 
     if (props.deleteType === "file") {
       formData.append("file_name", props.deleteFile.fname);
@@ -43,8 +48,8 @@ const Delete = (props) => {
       console.log(key[0]);
       console.log(key[1]);
     }
-    /* const url = "https://assignment-backend-tutedude.herokuapp.com";
-    let a = await fetch(url, {
+    const url = "https://assignment-backend-tutedude.herokuapp.com/submission/";
+    let a = await fetch(url + props.deleteType, {
       method: "DELETE",
       body: formData,
     })
@@ -57,8 +62,8 @@ const Delete = (props) => {
         } else {
           alert("error");
         }
-      });*/
-    props.sendData();
+      });
+    //props.sendData();
   }
 
   const handleSubmit = (e) => {
