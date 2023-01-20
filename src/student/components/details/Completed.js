@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
+import CompletedFeedback from "./CompletedFeedback";
 
 Modal.defaultStyles.overlay.backgroundColor = "rgba(74, 73, 73, 0.7)";
 const customStyles = {
@@ -164,7 +165,10 @@ const Completed = (props) => {
         {view === "Mentor's Feedback" && (
           <div className="flex-column">
             <h3>Mentor's Feedback</h3>
-            <div className="white-area">{sub !== null && sub.review}</div>
+            <div className="white-area">
+              {sub !== null && <CompletedFeedback data={sub} />}
+            </div>
+            {/* {console.log(sub.review)} */}
           </div>
         )}
 

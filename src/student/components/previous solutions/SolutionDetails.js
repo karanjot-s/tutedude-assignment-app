@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Modal from "react-modal";
+import CompletedFeedback from "../details/CompletedFeedback";
 
 Modal.defaultStyles.overlay.backgroundColor = "rgba(74, 73, 73, 0.7)";
 const customStyles = {
@@ -62,7 +63,7 @@ const SolutionDetails = (props) => {
   const [view, setView] = useState("Solution View");
 
   function changeButton(event) {
-    if (view === "Solution View") setView("Feedback View");
+    if (view === "Solution View" && sub.review) setView("Feedback View");
     else setView("Solution View");
   }
 
@@ -178,7 +179,9 @@ const SolutionDetails = (props) => {
         {view === "Feedback View" && (
           <div className="flex-column">
             <h3>Mentor's Feedback</h3>
-            <div className="white-area">{sub !== null && sub.review}</div>
+            <div className="white-area">
+              {sub !== null && <CompletedFeedback data={sub} />}
+            </div>
           </div>
         )}
 

@@ -1,6 +1,7 @@
 .ques-section {
   padding: 1rem 3rem;
-  transition: all 1s;
+  /* transition: all 1s; */
+  transition: none;
   display: flex;
   gap: 2rem;
 }
@@ -229,7 +230,7 @@ h3 span {
   justify-content: space-between;
 }
 .white-area a {
-  width: 1.2rem;
+  /* width: 1.2rem; */
   height: 1.2rem;
 }
 .edit-button,
@@ -240,4 +241,8 @@ h3 span {
   margin-top: 0 !important;
   padding: 0 !important;
   margin-left: 1.5rem;
+}
+
+.solution-section {
+  transition: none;
 }

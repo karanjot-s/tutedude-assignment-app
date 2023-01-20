@@ -10,9 +10,10 @@ const AssignmestsPage = () => {
   console.log(ids);
 
   //const domain=http://tutedude.herokuapp.com
-  const url = "https://assignment-backend-tutedude.herokuapp.com";
+  const url = "https://tutedude-assignment.onrender.com/";
 
-  /*const assignments = [
+  /*
+  const assignments = [
     {
       _id: "62e21ad8ef8ce43ddbdd3546",
       subject_id: 1,
@@ -43,7 +44,7 @@ const AssignmestsPage = () => {
                 "uploadedFileName",
               ],
               link: ["url1", "url2"],
-              linkText:[],
+              linkText: [],
               text: "abc",
             },
             {
@@ -212,14 +213,14 @@ const AssignmestsPage = () => {
       ],
     },
   ];
-*/
+  */
   const [isLoading, setLoading] = useState(!true);
-  /**/ const [assignments, setAssignments] = useState([]);
+  const [assignments, setAssignments] = useState([]);
   useEffect(
     () => {
       if (ids.subject_id !== null && ids.student_id !== null) {
         $.ajax({
-          url: `https://assignment-backend-tutedude.herokuapp.com/assignment/view?subject_id=${ids.subject_id}&student_id=${ids.student_id}`,
+          url: `${url}assignment/view?subject_id=${ids.subject_id}&student_id=${ids.student_id}`,
           type: "get",
           data: { student_id: 12, subject_id: 1 },
           processData: false,
@@ -239,13 +240,13 @@ const AssignmestsPage = () => {
       }
     }, // eslint-disable-next-line
     []
-  ); /**/
+  );
 
   function sendData(data) {
     console.log("hjk");
     if (ids.subject_id !== null && ids.student_id !== null) {
       $.ajax({
-        url: `https://assignment-backend-tutedude.herokuapp.com/assignment/view?subject_id=${ids.subject_id}&student_id=${ids.student_id}`,
+        url: `${url}/assignment/view?subject_id=${ids.subject_id}&student_id=${ids.student_id}`,
         type: "get",
         data: { student_id: 12, subject_id: 1 },
         processData: false,

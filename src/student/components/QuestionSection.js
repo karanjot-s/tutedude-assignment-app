@@ -9,7 +9,9 @@ const QuestionSection = (props) => {
   const questions = props.questions;
   const [opened, setOpened] = useState(1);
   const [quesOpened, setQues] = useState(questions[0]);
-  const [solutionSection, setSolutionSection] = useState(false);
+  const [solutionSection, setSolutionSection] = useState(
+    questions[0].status === "completed" ? true : false
+  );
 
   function openQuestion(question_no) {
     setOpened(question_no);
@@ -28,9 +30,11 @@ const QuestionSection = (props) => {
     var ques = questions.filter(function (el) {
       return el.question_no === opened;
     });
+    ques = ques[0];
+    setQues(ques);
 
-    setQues(ques[0]);
-  }, [opened]);
+    if (ques.status === "completed") setSolutionSection(true);
+  }, [opened, questions]);
 
   console.log("rendered Questionsection" + quesOpened.question_no);
 

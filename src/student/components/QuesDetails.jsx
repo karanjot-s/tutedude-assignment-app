@@ -28,6 +28,8 @@ const QuesDetails = (props) => {
     props.sendData(data);
   }
 
+  console.log(question);
+
   return (
     <div className="ques-details">
       {status === "pending" ? (

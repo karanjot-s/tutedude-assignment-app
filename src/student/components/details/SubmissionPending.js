@@ -120,7 +120,10 @@ const SubmissionPending = (props) => {
   async function uploadFile() {
     let formData = new FormData();
 
-    const aid = 123;
+    // const aid = 123;
+    const file_aid = 123,
+      link_aid = 456,
+      ltd_aid = 789;
     formData.append("assignment_id", props.assignmentId);
     formData.append("student_id", ids.student_id);
     formData.append("subject_id", ids.subject_id);
@@ -129,16 +132,21 @@ const SubmissionPending = (props) => {
     formData.append("question_no", question.question_no);
     formData.append("question", question.question);
     if (question.points) formData.append("points", question.points); //take if points in question else leave
-    formData.append("aid", aid);
+    formData.append("aid", file_aid);
+    formData.append("link_aid", link_aid);
+    formData.append("ltd_aid", ltd_aid);
+    // formData.append("file_n", files.length);
     formData.append("n", files.length);
+    formData.append("link_n", links.length);
+    formData.append("ltd_n", links.length);
 
     [...files].forEach((file, i) => {
-      formData.append(aid + "_" + i, file);
+      formData.append(file_aid + "_" + i, file);
     });
 
     links.forEach((link, i) => {
-      formData.append("link", link.url);
-      formData.append("linkText", link.text);
+      formData.append(`${link_aid}_${i}`, link.url);
+      formData.append(`${ltd_aid}_${i}`, link.text);
     });
 
     if (text !== null) formData.append("text", text);
@@ -158,7 +166,7 @@ const SubmissionPending = (props) => {
       console.log(key[0]);
       console.log(key[1]);
     }
-    const url = "https://assignment-backend-tutedude.herokuapp.com";
+    const url = "https://tutedude-assignment.onrender.com";
     let a = await fetch(url + submit, {
       method: "POST",
       body: formData,
