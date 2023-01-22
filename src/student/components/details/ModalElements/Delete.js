@@ -48,7 +48,7 @@ const Delete = (props) => {
       console.log(key[0]);
       console.log(key[1]);
     }
-    const url = "https://assignment-backend-tutedude.herokuapp.com/submission/";
+    const url = process.env.REACT_APP_API_URL + "/submission/";
     let a = await fetch(url + props.deleteType, {
       method: "DELETE",
       body: formData,

@@ -166,7 +166,7 @@ const SubmissionPending = (props) => {
       console.log(key[0]);
       console.log(key[1]);
     }
-    const url = "https://tutedude-assignment.onrender.com";
+    const url = process.env.REACT_APP_API_URL;
     let a = await fetch(url + submit, {
       method: "POST",
       body: formData,
