@@ -10,7 +10,8 @@ const AssignmestsPage = () => {
   console.log(ids);
 
   //const domain=http://tutedude.herokuapp.com
-  const url = "https://tutedude-assignment.onrender.com/";
+  // const url = "https://tutedude-assignment.onrender.com/";
+  const url = process.env.REACT_APP_API_URL;
 
   /*
   const assignments = [
@@ -220,7 +221,7 @@ const AssignmestsPage = () => {
     () => {
       if (ids.subject_id !== null && ids.student_id !== null) {
         $.ajax({
-          url: `${url}assignment/view?subject_id=${ids.subject_id}&student_id=${ids.student_id}`,
+          url: `${url}/assignment/view?subject_id=${ids.subject_id}&student_id=${ids.student_id}`,
           type: "get",
           data: { student_id: 12, subject_id: 1 },
           processData: false,
