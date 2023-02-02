@@ -450,7 +450,8 @@ const SubmissionPending = (props) => {
                         className="delete-button"
                         onClick={(event) => {
                           setModalType("delete");
-                          setDeleteText(sub.text);
+                          // setDeleteText(sub.text);
+                          setDeleteText(undefined);
                           setDeleteType("text");
                           openModal(event);
                         }}
