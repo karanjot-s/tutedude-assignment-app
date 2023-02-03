@@ -495,7 +495,7 @@ const SubmissionPending = (props) => {
                                 setDeleteLink((prev) => ({
                                   ...prev,
                                   ltext: sub.linkText,
-                                  flink: l,
+                                  link: l,
                                   index: index,
                                 }));
                                 setDeleteType("link");

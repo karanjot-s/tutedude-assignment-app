@@ -37,8 +37,8 @@ const Delete = (props) => {
       formData.append("file_link", props.deleteFile.flink);
       formData.append("index", props.deleteFile.index);
     } else if (props.deleteType === "link") {
-      formData.append("link", props.deleteLink.ltext);
-      formData.append("link_text", props.deleteLink.link);
+      formData.append("link", props.deleteLink.link);
+      formData.append("link_text", props.deleteLink.ltext);
       formData.append("index", props.deleteLink.index);
     } else if (props.deleteType === "text") {
       formData.append("text", props.deleteText);
@@ -59,6 +59,7 @@ const Delete = (props) => {
         console.log(data);
         if (data.success === true) {
           setSuccess(true);
+          window.location.reload();
         } else {
           alert("error");
         }

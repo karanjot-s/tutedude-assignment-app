@@ -27,6 +27,8 @@ const QuestionSection = (props) => {
     status = "Submission Pending";
   } else if (question.status === "submitted") {
     status = "Under Evaluation";
+  } else if (question.status === "resubmit") {
+    status = "Resubmission Required";
   } else status = "Completed";
 
   return (

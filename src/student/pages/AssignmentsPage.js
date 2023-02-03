@@ -246,11 +246,7 @@ const AssignmestsPage = () => {
         fetch(
           `${url}/assignment/view?subject_id=${ids.subject_id}&student_id=${ids.student_id}`,
           {
-            method: "get",
-            // headers: {
-            //   accept: "application/json",
-            //   "Access-Control-Allow-Origin": "*",
-            // },
+            method: "GET",
             // mode: "no-cors",
           }
         )
@@ -268,6 +264,48 @@ const AssignmestsPage = () => {
           })
           .catch((err) => {
             console.log(err);
+            setAssignments([
+              {
+                assignment_id: "63ca7d70c35d683bc1157037",
+                subject_id: "63cac188c796cfd9126be950",
+                questions: [
+                  {
+                    question: "WAP to check if the number is prime",
+                    question_no: 1,
+                    status: "resubmit",
+                    submissions: [
+                      {
+                        attempt: 3,
+                        filelink: [],
+                        filename: [],
+                        link: [],
+                        text: "another submission",
+                        linkText: [],
+                        review: {
+                          filelink: [],
+                          filename: [],
+                          filecloudlinks: [],
+                          link: [],
+                          text: "demo statement",
+                          linkText: [],
+                          _id: "63da4caab118d71f3d2ba7b1",
+                        },
+                        reviewDate: "2023-02-01T11:27:38.909Z",
+                        _id: "63ca9918ac7c7e39e7f244c2",
+                        updatedAt: "2023-02-01T11:27:38.910Z",
+                        addDate: "2023-02-01T11:27:38.910Z",
+                      },
+                    ],
+                    submission_id: "63ca86558c04cb08393152f6",
+                  },
+                  {
+                    question: "WAP to check if the number is even",
+                    question_no: 2,
+                    status: "pending",
+                  },
+                ],
+              },
+            ]);
           });
       }
     }, // eslint-disable-next-line

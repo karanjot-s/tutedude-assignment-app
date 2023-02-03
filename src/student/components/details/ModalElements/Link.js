@@ -18,8 +18,12 @@ const Link = (props) => {
 
   const handleLinkInput = (e) => {
     e.preventDefault();
+
+    const parsedLink = link.url.includes("http")
+      ? link
+      : { ...link, url: `http://upskill.tutedude.com/assignment/${link.url}` };
     setLinks((prevLinks) => {
-      return [...prevLinks, link];
+      return [...prevLinks, parsedLink];
     });
     setLink({ url: "", text: "" });
   };
