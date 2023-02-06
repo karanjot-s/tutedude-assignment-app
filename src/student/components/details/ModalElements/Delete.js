@@ -50,7 +50,7 @@ const Delete = (props) => {
     }
     const url = process.env.REACT_APP_API_URL + "/submission/";
     let a = await fetch(url + props.deleteType, {
-      method: "PUT",
+      method: "DELETE",
       body: formData,
     })
       .then((response) => response.json())
