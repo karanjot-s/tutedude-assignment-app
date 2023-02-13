@@ -110,12 +110,13 @@ const UpdateSubmission = (props) => {
     formData.append("assignment_id", props.assignmentId);
     formData.append("student_id", ids.student_id);
     formData.append("subject_id", ids.subject_id);
-    // formData.append("list_id", question._id);
+
     let sub;
-    if (question.submissions)
+    if (question.submissions) {
       sub = question.submissions[question.submissions.length - 1];
-    else sub = null;
-    formData.append("list_id", question.submission_id);
+      formData.append("list_id", sub._id);
+    } else sub = null;
+    formData.append("submission_id", question.submission_id);
     formData.append("attempt", sub.attempt + 1);
     formData.append("question_no", question.question_no);
     formData.append("question", question.question);
@@ -161,12 +162,12 @@ const UpdateSubmission = (props) => {
     formData.append("assignment_id", props.assignmentId);
     formData.append("student_id", ids.student_id);
     formData.append("subject_id", ids.subject_id);
-    // formData.append("list_id", question._id);
     let sub;
-    if (question.submissions)
+    if (question.submissions) {
       sub = question.submissions[question.submissions.length - 1];
-    else sub = null;
-    formData.append("list_id", question.submission_id);
+      formData.append("list_id", sub._id);
+    } else sub = null;
+    formData.append("submission_id", question.submission_id);
     formData.append("attempt", sub.attempt + 1);
     formData.append("question_no", question.question_no);
     formData.append("question", question.question);
@@ -213,12 +214,12 @@ const UpdateSubmission = (props) => {
     formData.append("assignment_id", props.assignmentId);
     formData.append("student_id", ids.student_id);
     formData.append("subject_id", ids.subject_id);
-    // formData.append("list_id", question._id);
     let sub;
-    if (question.submissions)
+    if (question.submissions) {
       sub = question.submissions[question.submissions.length - 1];
-    else sub = null;
-    formData.append("list_id", question.submission_id);
+      formData.append("list_id", sub._id);
+    } else sub = null;
+    formData.append("submission_id", question.submission_id);
     formData.append("attempt", sub.attempt + 1);
     formData.append("question_no", question.question_no);
     formData.append("question", question.question);
