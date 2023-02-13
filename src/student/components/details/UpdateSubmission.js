@@ -22,7 +22,7 @@ const customStyles = {
 };
 Modal.setAppElement("#root");
 
-const SubmissionPending = (props) => {
+const UpdateSubmission = (props) => {
   const [ids, setIds] = useContext(GlobalState);
 
   const [modalIsOpen, setIsOpen] = useState(false);
@@ -101,20 +101,153 @@ const SubmissionPending = (props) => {
 
   console.log("rendered submitsec" + question.question_no);
 
-  function getFiles(files) {
-    /*setFiles((prevFiles) => {
-      return [...prevFiles, ...files];
-    });*/
-
+  async function getFiles(files) {
     setFiles(files);
-    // console.log(files);
+    let formData = new FormData();
+
+    const file_aid = 123;
+
+    formData.append("assignment_id", props.assignmentId);
+    formData.append("student_id", ids.student_id);
+    formData.append("subject_id", ids.subject_id);
+    // formData.append("list_id", question._id);
+    let sub;
+    if (question.submissions)
+      sub = question.submissions[question.submissions.length - 1];
+    else sub = null;
+    formData.append("list_id", question.submission_id);
+    formData.append("attempt", sub.attempt + 1);
+    formData.append("question_no", question.question_no);
+    formData.append("question", question.question);
+    if (question.points) formData.append("points", question.points); //take if points in question else leave
+    formData.append("aid", file_aid);
+    formData.append("n", files.length);
+
+    [...files].forEach((file, i) => {
+      formData.append(file_aid + "_" + i, file);
+    });
+
+    var submit = "/submission/file";
+
+    // for (var key of formData.entries()) {
+    //   console.log(key[0]);
+    //   console.log(key[1]);
+    // }
+    const url = process.env.REACT_APP_API_URL;
+    let a = await fetch(url + submit, {
+      method: "PUT",
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("data");
+        console.log(data);
+        if (data.success === true) {
+          setSubmit(true);
+          props.sendData(data);
+        } else {
+          openModal();
+        }
+      });
   }
 
-  function getLinks(links) {
+  async function getLinks(links) {
     setLinks(links);
+    let formData = new FormData();
+
+    const link_aid = 456,
+      ltd_aid = 789;
+
+    formData.append("assignment_id", props.assignmentId);
+    formData.append("student_id", ids.student_id);
+    formData.append("subject_id", ids.subject_id);
+    // formData.append("list_id", question._id);
+    let sub;
+    if (question.submissions)
+      sub = question.submissions[question.submissions.length - 1];
+    else sub = null;
+    formData.append("list_id", question.submission_id);
+    formData.append("attempt", sub.attempt + 1);
+    formData.append("question_no", question.question_no);
+    formData.append("question", question.question);
+    if (question.points) formData.append("points", question.points); //take if points in question else leave
+
+    formData.append("link_aid", link_aid);
+    formData.append("ltd_aid", ltd_aid);
+
+    formData.append("link_n", links.length);
+    formData.append("ltd_n", links.length);
+
+    links.forEach((link, i) => {
+      formData.append(`${link_aid}_${i}`, link.url);
+      formData.append(`${ltd_aid}_${i}`, link.text);
+    });
+
+    var submit = "/submission/link";
+
+    // for (var key of formData.entries()) {
+    //   console.log(key[0]);
+    //   console.log(key[1]);
+    // }
+    const url = process.env.REACT_APP_API_URL;
+    let a = await fetch(url + submit, {
+      method: "PUT",
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("data");
+        console.log(data);
+        if (data.success === true) {
+          setSubmit(true);
+          props.sendData(data);
+        } else {
+          openModal();
+        }
+      });
   }
-  function getText(text) {
+  async function getText(text) {
     setText(text);
+    let formData = new FormData();
+
+    formData.append("assignment_id", props.assignmentId);
+    formData.append("student_id", ids.student_id);
+    formData.append("subject_id", ids.subject_id);
+    // formData.append("list_id", question._id);
+    let sub;
+    if (question.submissions)
+      sub = question.submissions[question.submissions.length - 1];
+    else sub = null;
+    formData.append("list_id", question.submission_id);
+    formData.append("attempt", sub.attempt + 1);
+    formData.append("question_no", question.question_no);
+    formData.append("question", question.question);
+    if (question.points) formData.append("points", question.points); //take if points in question else leave
+
+    if (text !== null) formData.append("text", text);
+
+    var submit = "/submission/text";
+
+    // for (var key of formData.entries()) {
+    //   console.log(key[0]);
+    //   console.log(key[1]);
+    // }
+    const url = process.env.REACT_APP_API_URL;
+    let a = await fetch(url + submit, {
+      method: "PUT",
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("data");
+        console.log(data);
+        if (data.success === true) {
+          setSubmit(true);
+          props.sendData(data);
+        } else {
+          openModal();
+        }
+      });
   }
 
   async function uploadFile() {
@@ -358,8 +491,7 @@ const SubmissionPending = (props) => {
                 <p>{question.instructions}</p>
               </div>
             )}
-            {(question.status === "completed" ||
-              question.status === "resubmit") && (
+            {question.status === "completed" && (
               <div className="center">
                 <button onClick={viewSolutionButtonHandler}>
                   View Previous Solution
@@ -521,13 +653,14 @@ const SubmissionPending = (props) => {
                 )}
               </div>
               <p>
-                <strong>Note:</strong>the file has been submitted Successfully
+                <strong>Note:</strong> Update will be submitted as you click
+                done
               </p>
             </div>
           )}
 
           <div>
-            <h3>Submit Solution as</h3>
+            <h3>Update Solution</h3>
             <div className="formButtons">
               <div>
                 <button
@@ -585,7 +718,7 @@ const SubmissionPending = (props) => {
                   File
                 </button>
               </div>
-              <form onSubmit={submitHandler} encType="multipart/form-data">
+              {/* <form onSubmit={submitHandler} encType="multipart/form-data">
                 <button
                   type="submit"
                   className="submit-solution"
@@ -597,7 +730,7 @@ const SubmissionPending = (props) => {
                 >
                   Submit
                 </button>
-              </form>
+              </form> */}
             </div>
           </div>
         </div>
@@ -619,4 +752,4 @@ const SubmissionPending = (props) => {
     </div>
   );
 };
-export default SubmissionPending;
+export default UpdateSubmission;

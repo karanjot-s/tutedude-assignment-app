@@ -15,7 +15,7 @@ const UnderEvaluation = (props) => {
       <div className="flex-column">
         <h3>Status of Submission</h3>
 
-        <div className="white-area">status</div>
+        <div className="white-area">Under Evaluation</div>
         <div className="button-flex">
           <button onClick={changeToSubPending} className="button-flex">
             View you solution

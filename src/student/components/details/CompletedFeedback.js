@@ -8,7 +8,7 @@ const CompletedFeedback = ({ data }) => {
       {/* <div className={styles.solution_cont}> */}
       {/* <div className={styles.number}>{data.number}</div> */}
       <div className={styles.solution}>
-        {data.text ? (
+        {data && data.text ? (
           <div className={styles.link_cont}>
             <h6>Message</h6>
             <hr />
@@ -18,7 +18,7 @@ const CompletedFeedback = ({ data }) => {
           ""
         )}
 
-        {data.linkText.length > 0 ? (
+        {data && data.review.linkText ? (
           <div>
             <h6>Links</h6>
             <hr />

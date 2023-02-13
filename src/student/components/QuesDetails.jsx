@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import SubmissionPending from "./details/SubmissionPending";
 import UnderEvaluation from "./details/UnderEvaluation";
 import Completed from "./details/Completed";
+import UpdateSubmission from "./details/UpdateSubmission";
 
 const QuesDetails = (props) => {
   var question = props.QuestionOpened;
@@ -21,6 +22,9 @@ const QuesDetails = (props) => {
       setStatus("pending");
     }
   }
+  function changeToUpdate(flag) {
+    if (flag === true) setStatus("update");
+  }
   function sendNotificationToChangeSection() {
     props.changeSectionNotify();
   }
@@ -32,7 +36,7 @@ const QuesDetails = (props) => {
 
   return (
     <div className="ques-details">
-      {status === "pending" ? (
+      {status === "pending" || status === "resubmit" ? (
         <SubmissionPending
           question={question}
           changeSec={sendNotificationToChangeSection}
@@ -40,9 +44,18 @@ const QuesDetails = (props) => {
           sendData={sendData}
         />
       ) : status === "submitted" ? (
-        <UnderEvaluation question={question} reSubmit={changeToPending} />
-      ) : (
+        <UnderEvaluation question={question} reSubmit={changeToUpdate} />
+      ) : status === "update" ? (
+        <UpdateSubmission
+          question={question}
+          changeSec={sendNotificationToChangeSection}
+          assignmentId={props.assignmentId}
+          sendData={sendData}
+        />
+      ) : status === "completed" ? (
         <Completed question={question} reSubmit={changeToPending} />
+      ) : (
+        <>Something went wrong: {status}</>
       )}
     </div>
   );

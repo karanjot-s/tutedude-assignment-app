@@ -19,11 +19,13 @@ const Link = (props) => {
   const handleLinkInput = (e) => {
     e.preventDefault();
 
-    const parsedLink = link.url.includes("http")
-      ? link
-      : { ...link, url: `http://upskill.tutedude.com/assignment/${link.url}` };
+    // const parsedLink = link.url.includes("http")
+    //   ? link
+    //   : { ...link, url: `http://upskill.tutedude.com/assignment/${link.url}` };
+    if (!link.url.includes("http"))
+      return window.alert("Links must have http!");
     setLinks((prevLinks) => {
-      return [...prevLinks, parsedLink];
+      return [...prevLinks, link];
     });
     setLink({ url: "", text: "" });
   };
