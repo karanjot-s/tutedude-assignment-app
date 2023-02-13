@@ -152,7 +152,7 @@ const SubmissionPending = (props) => {
     if (text !== null) formData.append("text", text);
 
     var submit = "/submit";
-    if (question.status === "completed") {
+    if (question.status === "completed" || question.status === "resubmit") {
       let sub;
       if (question.submissions)
         sub = question.submissions[question.submissions.length - 1];
@@ -359,7 +359,8 @@ const SubmissionPending = (props) => {
               </div>
             )}
             {(question.status === "completed" ||
-              question.status === "resubmit") && (
+              question.status === "resubmit" ||
+              question.submissions.length > 1) && (
               <div className="center">
                 <button onClick={viewSolutionButtonHandler}>
                   View Previous Solution

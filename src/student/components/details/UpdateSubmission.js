@@ -114,6 +114,7 @@ const UpdateSubmission = (props) => {
     let sub;
     if (question.submissions) {
       sub = question.submissions[question.submissions.length - 1];
+      console.log(sub);
       formData.append("list_id", sub._id);
     } else sub = null;
     formData.append("submission_id", question.submission_id);
@@ -135,21 +136,21 @@ const UpdateSubmission = (props) => {
     //   console.log(key[1]);
     // }
     const url = process.env.REACT_APP_API_URL;
-    let a = await fetch(url + submit, {
-      method: "PUT",
-      body: formData,
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("data");
-        console.log(data);
-        if (data.success === true) {
-          setSubmit(true);
-          props.sendData(data);
-        } else {
-          openModal();
-        }
-      });
+    // let a = await fetch(url + submit, {
+    //   method: "PUT",
+    //   body: formData,
+    // })
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     console.log("data");
+    //     console.log(data);
+    //     if (data.success === true) {
+    //       setSubmit(true);
+    //       props.sendData(data);
+    //     } else {
+    //       openModal();
+    //     }
+    //   });
   }
 
   async function getLinks(links) {
@@ -165,6 +166,7 @@ const UpdateSubmission = (props) => {
     let sub;
     if (question.submissions) {
       sub = question.submissions[question.submissions.length - 1];
+      console.log(sub);
       formData.append("list_id", sub._id);
     } else sub = null;
     formData.append("submission_id", question.submission_id);
@@ -217,6 +219,7 @@ const UpdateSubmission = (props) => {
     let sub;
     if (question.submissions) {
       sub = question.submissions[question.submissions.length - 1];
+      console.log(sub);
       formData.append("list_id", sub._id);
     } else sub = null;
     formData.append("submission_id", question.submission_id);
@@ -492,13 +495,6 @@ const UpdateSubmission = (props) => {
                 <p>{question.instructions}</p>
               </div>
             )}
-            {question.status === "completed" && (
-              <div className="center">
-                <button onClick={viewSolutionButtonHandler}>
-                  View Previous Solution
-                </button>
-              </div>
-            )}
           </div>
           {question.status === "submitted" && (
             <div className="flex-column">
@@ -719,6 +715,7 @@ const UpdateSubmission = (props) => {
                   File
                 </button>
               </div>
+
               {/* <form onSubmit={submitHandler} encType="multipart/form-data">
                 <button
                   type="submit"
@@ -732,6 +729,14 @@ const UpdateSubmission = (props) => {
                   Submit
                 </button>
               </form> */}
+              {(question.status === "completed" ||
+                question.submissions.length > 1) && (
+                <div className="center">
+                  <button onClick={viewSolutionButtonHandler}>
+                    View Previous Solution
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </div>
