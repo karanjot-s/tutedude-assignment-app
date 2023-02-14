@@ -12,7 +12,7 @@ const CompletedFeedback = ({ data }) => {
           <div className={styles.link_cont}>
             <h6>Message</h6>
             <hr />
-            <div className={styles.msg}>{data.text}</div>
+            <div className={styles.msg}>{data.review.text}</div>
           </div>
         ) : (
           ""
@@ -40,17 +40,17 @@ const CompletedFeedback = ({ data }) => {
           ""
         )}
 
-        {data.filename.length > 0 ? (
+        {data.review.filename.length > 0 ? (
           <div>
             <h6>Files</h6>
             <hr />
             <div className={styles.link_cont}>
-              {data.filename.map((file, ind) => (
+              {data.review.filename.map((file, ind) => (
                 <div
                   key={ind}
                   className={styles.file}
                   onClick={() => {
-                    window.open(data.filelink[ind], "_blank");
+                    window.open(data.review.filelink[ind], "_blank");
                   }}
                 >
                   <span>{file}</span>

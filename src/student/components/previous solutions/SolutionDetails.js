@@ -36,7 +36,9 @@ const SolutionDetails = (props) => {
   }
 
   let sub;
-  if (solution) sub = solution;
+  if (solution) {sub = solution;
+  console.log("solution in SolutionDetail",solution);
+  }
   else sub = null;
   if (question.submissions) {
     var dateObj = new Date(sub.updatedAt);
