@@ -179,7 +179,12 @@ const Completed = (props) => {
               ? "View Your Solution"
               : "Mentor's Feedback"}
           </button>
-          <button onClick={changeToSubPending}>Re-submit</button>
+          {
+            (sub.status=="resubmit" || sub.status=="completed") && (
+              <button onClick={changeToSubPending}>Re-submit</button>
+            )
+          }
+          {/* <button onClick={changeToSubPending}>Re-submit</button> */}
         </div>
       </div>
       {/* )} */}

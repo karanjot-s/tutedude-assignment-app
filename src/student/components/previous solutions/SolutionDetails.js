@@ -192,7 +192,11 @@ const SolutionDetails = (props) => {
             {" "}
             {view === "Feedback View" ? "Solution View" : "Feedback View"}
           </button>
-          <button onClick={changeToSubPending}>Re-submit</button>
+          {
+            (sub.status=="resubmit" || sub.status=="completed") && (
+              <button onClick={changeToSubPending}>Re-submit</button>
+            )
+          }
         </div>
       </div>
     </React.Fragment>
