@@ -730,7 +730,7 @@ const UpdateSubmission = (props) => {
                 </button>
               </form> */}
               {(question.status === "completed" ||
-                question.submissions.length > 1) && (
+                (question.submissions && question.submissions.length > 1)) && (
                 <div className="center">
                   <button onClick={viewSolutionButtonHandler}>
                     View Previous Solution
