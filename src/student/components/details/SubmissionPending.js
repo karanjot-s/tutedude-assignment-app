@@ -360,7 +360,7 @@ const SubmissionPending = (props) => {
             )}
             {(question.status === "completed" ||
               question.status === "resubmit" ||
-              question.submissions.length > 1) && (
+              (question.submissions && question.submissions.length > 1)) && (
               <div className="center">
                 <button onClick={viewSolutionButtonHandler}>
                   View Previous Solution
