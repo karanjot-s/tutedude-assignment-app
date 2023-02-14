@@ -136,21 +136,21 @@ const UpdateSubmission = (props) => {
     //   console.log(key[1]);
     // }
     const url = process.env.REACT_APP_API_URL;
-    // let a = await fetch(url + submit, {
-    //   method: "PUT",
-    //   body: formData,
-    // })
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     console.log("data");
-    //     console.log(data);
-    //     if (data.success === true) {
-    //       setSubmit(true);
-    //       props.sendData(data);
-    //     } else {
-    //       openModal();
-    //     }
-    //   });
+    let a = await fetch(url + submit, {
+      method: "PUT",
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("data");
+        console.log(data);
+        if (data.success === true) {
+          setSubmit(true);
+          props.sendData(data);
+        } else {
+          openModal();
+        }
+      });
   }
 
   async function getLinks(links) {
