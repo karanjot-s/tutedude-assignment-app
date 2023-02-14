@@ -27,7 +27,7 @@ const CompletedFeedback = ({ data }) => {
                 <a
                   key={ind}
                   className={styles.link}
-                  href={data.link[ind]}
+                  href={data.review.link[ind]}
                   target="_blank"
                   rel="noreferrer"
                 >

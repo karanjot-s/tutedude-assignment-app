@@ -35,7 +35,9 @@ const SolutionDetails = (props) => {
     setIsOpen(false);
   }
 
-  let sub;
+  let sub, status;
+  if(question.status)
+  status = question.status;
   if (solution) {sub = solution;
   console.log("solution in SolutionDetail",solution);
   }
@@ -193,7 +195,7 @@ const SolutionDetails = (props) => {
             {view === "Feedback View" ? "Solution View" : "Feedback View"}
           </button>
           {
-            (sub.status=="resubmit" || sub.status=="completed") && (
+            (status==="resubmit" || status==="completed") && (
               <button onClick={changeToSubPending}>Re-submit</button>
             )
           }
