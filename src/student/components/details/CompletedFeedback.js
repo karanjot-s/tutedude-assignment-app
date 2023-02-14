@@ -18,7 +18,7 @@ const CompletedFeedback = ({ data }) => {
           ""
         )}
 
-        {data && data.review.linkText ? (
+        {data && data.review && data.review.linkText ? (
           <div>
             <h6>Links</h6>
             <hr />
