@@ -35,7 +35,7 @@ const App = () => {
   else if(localStorage.getItem("student_id") && localStorage.getItem("subject_id"))
   {
     console.log("else if");
-    setIds({student_id,subject_id});
+    setIds({student_id:localStorage.getItem("student_id"),subject_id:localStorage.getItem("subject_id")});
   }
 },[]);
 
