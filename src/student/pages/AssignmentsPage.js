@@ -220,6 +220,7 @@ const AssignmestsPage = () => {
   const [assignments, setAssignments] = useState([]);
   useEffect(
     () => {
+      console.log("ids in useEffect = ",ids);
       if (ids.subject_id !== null && ids.student_id !== null) {
         // $.ajax({
         //   url: `${url}/assignment/view?subject_id=${ids.subject_id}&student_id=${ids.student_id}`,
@@ -244,35 +245,39 @@ const AssignmestsPage = () => {
         //     setLoading(!isLoading);
         //   }
         // });
-        fetch(
-          `${url}/assignment/view?subject_id=${ids.subject_id}&student_id=${ids.student_id}`,
-          {
-            method: "GET",
-            // mode: "no-cors",
-          }
-        )
-          .then((res) => {
-            console.log(res);
-            return res.json();
-          })
-          .then((data) => {
-            console.log(data);
-            setAssignments(data.data);
-            const el = document.querySelector(".loader-container");
-            if (el) {
-              setLoading(!isLoading);
+        if(ids.subject_id && ids.student_id)
+        {
+
+          fetch(
+            `${url}/assignment/view?subject_id=${ids.subject_id}&student_id=${ids.student_id}`,
+            {
+              method: "GET",
+              // mode: "no-cors",
             }
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-        // .finally(() => {
-        //   setAssignments(getData().data);
-        // });
+          )
+            .then((res) => {
+              console.log(res);
+              return res.json();
+            })
+            .then((data) => {
+              console.log(data);
+              setAssignments(data.data);
+              const el = document.querySelector(".loader-container");
+              if (el) {
+                setLoading(!isLoading);
+              }
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+          // .finally(() => {
+          //   setAssignments(getData().data);
+          // });
+        }
       }
-    }, // eslint-disable-next-line
-    []
-  );
+      }, // eslint-disable-next-line
+      []
+    );
 
   function sendData(data) {
     console.log("hjk");

@@ -18,26 +18,26 @@ const App = () => {
   const queryParams = new URLSearchParams(window.location.search);
   const student_id = queryParams.get("student_id");
   const subject_id = queryParams.get("subject_id");
-  const [ids, setIds] = useState({});
+  const [ids, setIds] = useState((student_id && subject_id)?{subject_id,student_id}:{student_id:localStorage.getItem("student_id"),subject_id:localStorage.getItem("subject_id")});
   //   student_id: student_id,
   //   subject_id: subject_id,
   // });
-  useEffect(()=>{
-  console.log(student_id);
-  console.log(subject_id);
-  if(student_id && subject_id)
-  {
-    console.log("In if");
-    localStorage.setItem("student_id",student_id);
-    localStorage.setItem("subject_id",subject_id);
-    setIds({student_id,subject_id});
-  }
-  else if(localStorage.getItem("student_id") && localStorage.getItem("subject_id"))
-  {
-    console.log("else if");
-    setIds({student_id:localStorage.getItem("student_id"),subject_id:localStorage.getItem("subject_id")});
-  }
-},[]);
+//   useEffect(()=>{
+//   console.log(student_id);
+//   console.log(subject_id);
+//   if(student_id && subject_id)
+//   {
+//     console.log("In if");
+//     localStorage.setItem("student_id",student_id);
+//     localStorage.setItem("subject_id",subject_id);
+//     setIds({student_id,subject_id});
+//   }
+//   else if(localStorage.getItem("student_id") && localStorage.getItem("subject_id"))
+//   {
+//     console.log("else if");
+//     setIds({student_id:localStorage.getItem("student_id"),subject_id:localStorage.getItem("subject_id")});
+//   }
+// },[]);
 
   return (
     <GlobalState.Provider value={[ids, setIds]}>
