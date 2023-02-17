@@ -4,6 +4,7 @@ import {
   Routes,
   Route,
   Navigate,
+  BrowserRouter,
 } from "react-router-dom";
 
 import File from "./student/components/details/ModalElements/File";
@@ -27,6 +28,7 @@ const App = () => {
 
   return (
     <GlobalState.Provider value={[ids, setIds]}>
+      <BrowserRouter>
       <Router>
         {/* <MainNavigation /> */}
         <main>
@@ -36,10 +38,11 @@ const App = () => {
             <Route path="/dummy" element={<AssignmentsPage />} />
 
             {/* <Route path="/mentor" element={<h3>mentor</h3>} /> */}
-            <Route path="*" element={<Navigate replace to="/assignment" />} />
+            {/* <Route path="*" element={<Navigate replace to="/assignment" />} /> */}
           </Routes>
         </main>
       </Router>
+      </BrowserRouter>
     </GlobalState.Provider>
   );
 };
