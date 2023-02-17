@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -22,18 +22,22 @@ const App = () => {
   //   student_id: student_id,
   //   subject_id: subject_id,
   // });
+  useEffect(()=>{
   console.log(student_id);
   console.log(subject_id);
   if(student_id && subject_id)
   {
+    console.log("In if");
     localStorage.setItem("student_id",student_id);
     localStorage.setItem("subject_id",subject_id);
     setIds({student_id,subject_id});
   }
   else if(localStorage.getItem("student_id") && localStorage.getItem("subject_id"))
   {
+    console.log("else if");
     setIds({student_id,subject_id});
   }
+},[]);
 
   return (
     <GlobalState.Provider value={[ids, setIds]}>
