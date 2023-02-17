@@ -31,7 +31,7 @@ const App = () => {
       <BrowserRouter>
       {/* <Router> */}
         {/* <MainNavigation /> */}
-        <main>
+        {/* <main> */}
           <Routes>
             {/* <Route path="/" element={<Home />} /> */}
             {/* <Route path="/assignment" element={<AssignmentsPage />} /> */}
@@ -40,7 +40,7 @@ const App = () => {
             {/* <Route path="/mentor" element={<h3>mentor</h3>} /> */}
             {/* <Route path="*" element={<Navigate replace to="/assignment" />} /> */}
           </Routes>
-        </main>
+        {/* </main> */}
       {/* </Router> */}
       </BrowserRouter>
     </GlobalState.Provider>
