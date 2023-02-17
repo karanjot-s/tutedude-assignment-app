@@ -32,9 +32,11 @@ const App = () => {
         <main>
           <Routes>
             {/* <Route path="/" element={<Home />} /> */}
-            <Route path="/assignment" element={<AssignmentsPage />} />
+            {/* <Route path="/assignment" element={<AssignmentsPage />} /> */}
+            <Route path="/" element={<AssignmentsPage />} />
+
             {/* <Route path="/mentor" element={<h3>mentor</h3>} /> */}
-            <Route path="*" element={<Navigate replace to="/assignment" />} />
+            {/* <Route path="*" element={<Navigate replace to="/assignment" />} /> */}
           </Routes>
         </main>
       </Router>
