@@ -29,7 +29,7 @@ const App = () => {
   return (
     <GlobalState.Provider value={[ids, setIds]}>
       <BrowserRouter>
-      <Router>
+      {/* <Router> */}
         {/* <MainNavigation /> */}
         <main>
           <Routes>
@@ -41,7 +41,7 @@ const App = () => {
             {/* <Route path="*" element={<Navigate replace to="/assignment" />} /> */}
           </Routes>
         </main>
-      </Router>
+      {/* </Router> */}
       </BrowserRouter>
     </GlobalState.Provider>
   );
