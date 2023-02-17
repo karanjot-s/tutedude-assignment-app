@@ -5,6 +5,8 @@ import AssignmentList from "../components/AssignmentList";
 import GlobalState from "../../contexts/GlobalState";
 import "./AssignmentPage.css";
 import getData from "../../temp/testData";
+import NavLinks from "../../shared/components/Navigation/NavLinks";
+import MainNavigation from "../../shared/components/Navigation/MainNavigation";
 
 const AssignmestsPage = () => {
   const [ids, setIds] = useContext(GlobalState);
@@ -372,6 +374,7 @@ const AssignmestsPage = () => {
   console.log("ass page rendered");
   return (
     <div>
+      <MainNavigation></MainNavigation>
       {isLoading ? (
         <div className="loader-container">
           <div className="loader"></div>
