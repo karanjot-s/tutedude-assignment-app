@@ -18,13 +18,16 @@ const App = () => {
   const queryParams = new URLSearchParams(window.location.search);
   const student_id = queryParams.get("student_id");
   const subject_id = queryParams.get("subject_id");
-
-  console.log(student_id);
-  console.log(subject_id);
   const [ids, setIds] = useState({
     student_id: student_id,
     subject_id: subject_id,
   });
+  console.log(student_id);
+  console.log(subject_id);
+  if(student_id && subject_id)
+  {
+    setIds({student_id,subject_id});
+  }
 
   return (
     <GlobalState.Provider value={[ids, setIds]}>
