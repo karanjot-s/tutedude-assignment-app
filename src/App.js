@@ -43,9 +43,9 @@ const App = () => {
         {/* <main> */}
           <Routes>
             {/* <Route path="/" element={<Home />} /> */}
-            <Route path="*" element={<Navigate replace to="/assignment" />} />
             {/* <Route path="/assignment" element={<AssignmentsPage />} /> */}
             <Route path="/assignment" element={<AssignmentsPage />} />
+            <Route path="*" element={<Navigate replace to="/assignment" />} />
 
             {/* <Route path="/mentor" element={<h3>mentor</h3>} /> */}
           </Routes>
