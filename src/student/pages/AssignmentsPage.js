@@ -222,7 +222,7 @@ const AssignmestsPage = () => {
   const [assignments, setAssignments] = useState([]);
   useEffect(
     () => {
-      console.log("ids in useEffect = ",ids);
+      console.log("ids in useEffect = ", ids);
       if (ids.subject_id !== null && ids.student_id !== null) {
         // $.ajax({
         //   url: `${url}/assignment/view?subject_id=${ids.subject_id}&student_id=${ids.student_id}`,
@@ -247,9 +247,7 @@ const AssignmestsPage = () => {
         //     setLoading(!isLoading);
         //   }
         // });
-        if(ids.subject_id && ids.student_id)
-        {
-
+        if (ids.subject_id && ids.student_id) {
           fetch(
             `${url}/assignment/view?subject_id=${ids.subject_id}&student_id=${ids.student_id}`,
             {
@@ -264,6 +262,7 @@ const AssignmestsPage = () => {
             .then((data) => {
               console.log(data);
               setAssignments(data.data);
+
               const el = document.querySelector(".loader-container");
               if (el) {
                 setLoading(!isLoading);
@@ -277,9 +276,9 @@ const AssignmestsPage = () => {
           // });
         }
       }
-      }, // eslint-disable-next-line
-      []
-    );
+    }, // eslint-disable-next-line
+    []
+  );
 
   function sendData(data) {
     console.log("hjk");
