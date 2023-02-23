@@ -53,16 +53,36 @@ const CompletedFeedback = ({ data }) => {
                     window.open(data.review.filelink[ind], "_blank");
                   }}
                 >
-                  <span>{file}</span>
-                  <svg
-                    width="14"
-                    height="17"
-                    viewBox="0 0 14 17"
-                    fill="#434343"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path d="M14 6H10V0H4V6H0L7 13L14 6ZM0 15V17H14V15H0Z" />
-                  </svg>
+                  {file.includes(".png") ||
+                  file.includes(".svg") ||
+                  file.includes(".jpg") ||
+                  file.includes("jpeg") ||
+                  file.includes(".gif") ? (
+                    <img
+                      style={{
+                        width: "90%",
+                        borderRadius: "20px",
+                        marginBottom: "1rem",
+                      }}
+                      alt={file}
+                      src={
+                        process.env.REACT_APP_FILE_PREFIX + data.filelink[ind]
+                      }
+                    />
+                  ) : (
+                    <>
+                      <span>{file}</span>
+                      <svg
+                        width="14"
+                        height="17"
+                        viewBox="0 0 14 17"
+                        fill="#434343"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path d="M14 6H10V0H4V6H0L7 13L14 6ZM0 15V17H14V15H0Z" />
+                      </svg>
+                    </>
+                  )}
                 </div>
               ))}
             </div>

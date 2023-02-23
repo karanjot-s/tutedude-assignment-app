@@ -36,12 +36,11 @@ const SolutionDetails = (props) => {
   }
 
   let sub, status;
-  if(question.status)
-  status = question.status;
-  if (solution) {sub = solution;
-  console.log("solution in SolutionDetail",solution);
-  }
-  else sub = null;
+  if (question.status) status = question.status;
+  if (solution) {
+    sub = solution;
+    console.log("solution in SolutionDetail", solution);
+  } else sub = null;
   if (question.submissions) {
     var dateObj = new Date(sub.updatedAt);
     var month = dateObj.getUTCMonth(); //months from 0-11
@@ -110,19 +109,40 @@ const SolutionDetails = (props) => {
                   {sub.filename.map((fname, index) => (
                     <React.Fragment key={index}>
                       <div className="white-area-element">
-                        <span>{fname}</span>
-                        <section>
-                          <a href={sub.filelink[index]} target="_blank">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="24"
-                              height="24"
-                              viewBox="0 0 24 24"
-                            >
-                              <path d="M12 21l-8-9h6v-12h4v12h6l-8 9zm9-1v2h-18v-2h-2v4h22v-4h-2z" />
-                            </svg>
-                          </a>
-                        </section>
+                        {fname.includes(".png") ||
+                        fname.includes(".svg") ||
+                        fname.includes(".jpg") ||
+                        fname.includes("jpeg") ||
+                        fname.includes(".gif") ? (
+                          <img
+                            style={{
+                              width: "90%",
+                              borderRadius: "20px",
+                              marginBottom: "1rem",
+                            }}
+                            alt={fname}
+                            src={
+                              process.env.REACT_APP_FILE_PREFIX +
+                              sub.filelink[index]
+                            }
+                          />
+                        ) : (
+                          <>
+                            <span>{fname}</span>
+                            <section>
+                              <a href={sub.filelink[index]} target="_blank">
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="24"
+                                  height="24"
+                                  viewBox="0 0 24 24"
+                                >
+                                  <path d="M12 21l-8-9h6v-12h4v12h6l-8 9zm9-1v2h-18v-2h-2v4h22v-4h-2z" />
+                                </svg>
+                              </a>
+                            </section>
+                          </>
+                        )}
                       </div>
                     </React.Fragment>
                   ))}
@@ -194,11 +214,9 @@ const SolutionDetails = (props) => {
             {" "}
             {view === "Feedback View" ? "Solution View" : "Feedback View"}
           </button>
-          {
-            (status==="resubmit" || status==="completed") && (
-              <button onClick={changeToSubPending}>Re-submit</button>
-            )
-          }
+          {(status === "resubmit" || status === "completed") && (
+            <button onClick={changeToSubPending}>Re-submit</button>
+          )}
         </div>
       </div>
     </React.Fragment>
