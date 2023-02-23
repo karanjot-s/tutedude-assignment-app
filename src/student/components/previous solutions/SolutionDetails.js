@@ -106,19 +106,40 @@ const SolutionDetails = (props) => {
                   {sub.filename.map((fname, index) => (
                     <React.Fragment key={index}>
                       <div className="white-area-element">
-                        <span>{fname}</span>
-                        <section>
-                          <a href={sub.filelink[index]} target="_blank">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="24"
-                              height="24"
-                              viewBox="0 0 24 24"
-                            >
-                              <path d="M12 21l-8-9h6v-12h4v12h6l-8 9zm9-1v2h-18v-2h-2v4h22v-4h-2z" />
-                            </svg>
-                          </a>
-                        </section>
+                        {fname.includes(".png") ||
+                        fname.includes(".svg") ||
+                        fname.includes(".jpg") ||
+                        fname.includes("jpeg") ||
+                        fname.includes(".gif") ? (
+                          <img
+                            style={{
+                              width: "90%",
+                              borderRadius: "20px",
+                              marginBottom: "1rem",
+                            }}
+                            alt={fname}
+                            src={
+                              process.env.REACT_APP_FILE_PREFIX +
+                              sub.filelink[index]
+                            }
+                          />
+                        ) : (
+                          <>
+                            <span>{fname}</span>
+                            <section>
+                              <a href={sub.filelink[index]} target="_blank">
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="24"
+                                  height="24"
+                                  viewBox="0 0 24 24"
+                                >
+                                  <path d="M12 21l-8-9h6v-12h4v12h6l-8 9zm9-1v2h-18v-2h-2v4h22v-4h-2z" />
+                                </svg>
+                              </a>
+                            </section>
+                          </>
+                        )}
                       </div>
                     </React.Fragment>
                   ))}
