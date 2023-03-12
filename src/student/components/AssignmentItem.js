@@ -33,7 +33,9 @@ const AssignmentItem = (props) => {
     <div className="ass-item">
       <div className="ass-details">
         <span className="no">{props.assNo}</span>
-        <span className="name">Assignment {props.assNo}</span>
+        <span className="name">
+          {assignment.topic ? assignment.topic : `Assignment ${props.assNo}`}
+        </span>
         <span className="status">
           {completed === assignment.questions.length
             ? "completed"
