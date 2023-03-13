@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import "./AssignmentItem.css";
 
@@ -6,7 +6,6 @@ import QuestionSection from "./QuestionSection";
 
 const AssignmentItem = (props) => {
   const assignment = props.assignment;
-
   var completed = 0;
   var pending = 0;
   assignment.questions.forEach(myFunction);
