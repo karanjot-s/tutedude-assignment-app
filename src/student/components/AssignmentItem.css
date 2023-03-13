@@ -55,7 +55,7 @@
 .progress-bar div {
   height: 1.5rem;
   /* width: 60%; */
-  background-color: rgba(67, 25, 67, 0.87);
+  background-color: #800080;
   border-radius: 1rem;
   text-align: right;
   padding-right: 0.2rem;

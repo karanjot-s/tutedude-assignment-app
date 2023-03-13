@@ -6,6 +6,7 @@ import {
   Navigate,
   BrowserRouter,
 } from "react-router-dom";
+import Cookies from "js-cookie";
 
 import File from "./student/components/details/ModalElements/File";
 import Home from "./student/pages/Home";
@@ -26,15 +27,46 @@ const App = () => {
           subject_id: localStorage.getItem("subject_id"),
         }
   );
+  const [chakraInit, setChakraInit] = useState(false);
   // const [ids, setIds] = useState({ subject_id, student_id });
   //   student_id: student_id,
   //   subject_id: subject_id,
   // });
+
   useEffect(() => {
-    console.log(student_id);
-    console.log(subject_id);
+    initChakra();
+    // eslint-disable-next-line
+  }, []);
+
+  function initChakra() {
+    const email = Cookies.get("user_email");
+    const name = Cookies.get("user_name");
+    if (chakraInit) return;
+    (function (d, w, c) {
+      w.ChatraID = process.env.REACT_APP_CHAKRA_ID;
+      var s = d.createElement("script");
+      w[c] =
+        w[c] ||
+        function () {
+          (w[c].q = w[c].q || []).push(arguments);
+        };
+      s.async = true;
+      s.src = "https://call.chatra.io/chatra.js";
+      if (d.head) d.head.appendChild(s);
+    })(document, window, "Chatra");
+    window.ChatraIntegration = {
+      /* main properties */
+      name: name,
+      email: email,
+    };
+    setChakraInit(true);
+  }
+
+  useEffect(() => {
+    // console.log(student_id);
+    // console.log(subject_id);
     if (student_id && subject_id) {
-      console.log("In if");
+      // console.log("In if");
       localStorage.setItem("student_id", student_id);
       localStorage.setItem("subject_id", subject_id);
       setIds({ student_id, subject_id });
@@ -42,7 +74,7 @@ const App = () => {
       localStorage.getItem("student_id") &&
       localStorage.getItem("subject_id")
     ) {
-      console.log("else if");
+      // console.log("else if");
       setIds({
         student_id: localStorage.getItem("student_id"),
         subject_id: localStorage.getItem("subject_id"),
