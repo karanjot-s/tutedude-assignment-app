@@ -380,7 +380,7 @@ const AssignmestsPage = () => {
         </div>
       ) : (
         <div className="Assignments">
-          <h1>Course Name</h1>
+          {/* <h1>Course Name</h1> */}
           <div className="Assignment-head">
             <span>Sr. No.</span>
             <span>Assignments</span>
