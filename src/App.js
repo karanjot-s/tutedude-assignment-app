@@ -43,6 +43,7 @@ const App = () => {
     const email = Cookies.get("user_email");
     const name = Cookies.get("user_name");
     console.log("cookie email = ", email);
+    console.log("cookie name = ", name);
     if (chakraInit) return;
     Chatra("init", {
       ID: process.env.REACT_APP_CHAKRA_ID,
