@@ -14,7 +14,7 @@ import AssignmentsPage from "./student/pages/AssignmentsPage";
 import MainNavigation from "./shared/components/Navigation/MainNavigation";
 import GlobalState from "./contexts/GlobalState";
 import "./App.css";
-
+const Chatra = import("chatra");
 const App = () => {
   const queryParams = new URLSearchParams(window.location.search);
   const student_id = queryParams.get("student_id");
@@ -41,24 +41,32 @@ const App = () => {
   function initChakra() {
     const email = Cookies.get("user_email");
     const name = Cookies.get("user_name");
+    console.log("cookie email = ",email);
     if (chakraInit) return;
-    (function (d, w, c) {
-      w.ChatraID = process.env.REACT_APP_CHAKRA_ID;
-      var s = d.createElement("script");
-      w[c] =
-        w[c] ||
-        function () {
-          (w[c].q = w[c].q || []).push(arguments);
-        };
-      s.async = true;
-      s.src = "https://call.chatra.io/chatra.js";
-      if (d.head) d.head.appendChild(s);
-    })(document, window, "Chatra");
-    window.ChatraIntegration = {
-      /* main properties */
-      name: name,
-      email: email,
-    };
+    Chatra('init',{
+      ID:process.env.REACT_APP_CHAKRA_ID,
+      integration:{
+        name:name,
+        email:email
+      }
+    })
+    // (function (d, w, c) {
+    //   w.ChatraID = process.env.REACT_APP_CHAKRA_ID;
+    //   var s = d.createElement("script");
+    //   w[c] =
+    //     w[c] ||
+    //     function () {
+    //       (w[c].q = w[c].q || []).push(arguments);
+    //     };
+    //   s.async = true;
+    //   s.src = "https://call.chatra.io/chatra.js";
+    //   if (d.head) d.head.appendChild(s);
+    // })(document, window, "Chatra");
+    // window.ChatraIntegration = {
+    //   /* main properties */
+    //   name: name,
+    //   email: email,
+    // };
     setChakraInit(true);
   }
 

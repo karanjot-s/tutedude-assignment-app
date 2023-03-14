@@ -381,6 +381,7 @@ const AssignmestsPage = () => {
       ) : (
         <div className="Assignments">
           {/* <h1>Course Name</h1> */}
+          {/* <spacer type="vertical" height="70" width="70">&nbsp;</spacer> */}
           <div className="Assignment-head">
             <span>Sr. No.</span>
             <span>Assignments</span>
