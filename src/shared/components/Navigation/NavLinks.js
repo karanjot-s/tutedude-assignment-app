@@ -21,7 +21,7 @@ const NavLinks = (props) => {
           to="#chatraChatExpanded"
           onClick={() => {
             console.log("chatra expanded");
-            Chatra("expandWidget");
+            Chatra("openChat");
           }}
         >
           Chat with Mentor

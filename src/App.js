@@ -36,6 +36,14 @@ const App = () => {
 
   useEffect(() => {
     initChakra();
+    const email = Cookies.get("user_email") || null;
+    const name = Cookies.get("user_name") || null;
+
+    Chatra("updateIntegrationData", {
+      email: email,
+      name: name,
+    });
+
     // eslint-disable-next-line
   }, []);
 
