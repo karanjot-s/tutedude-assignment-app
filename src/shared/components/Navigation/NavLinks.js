@@ -17,7 +17,13 @@ const NavLinks = (props) => {
         <NavLink to={`/assignment`}>My Assignments</NavLink>
       </li>
       <li>
-        <NavLink to="#chatraChatExpanded" onClick={Chatra("expandWidget")}>
+        <NavLink
+          to="#chatraChatExpanded"
+          onClick={() => {
+            console.log("chatra expanded");
+            Chatra("expandWidget");
+          }}
+        >
           Chat with Mentor
         </NavLink>
       </li>

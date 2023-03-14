@@ -40,8 +40,8 @@ const App = () => {
   }, []);
 
   function initChakra() {
-    const email = Cookies.get("user_email");
-    const name = Cookies.get("user_name");
+    const email = Cookies.get("user_email") || null;
+    const name = Cookies.get("user_name") || null;
     console.log("cookie email = ", email);
     console.log("cookie name = ", name);
     if (chakraInit) return;
