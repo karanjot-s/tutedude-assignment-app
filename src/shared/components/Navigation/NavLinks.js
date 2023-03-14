@@ -2,8 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { Route, Link, Routes, useLocation } from "react-router-dom";
 import "./NavLinks.css";
-const Chatra = import("@chatra/chatra");
-
+import Chatra from "@chatra/chatra";
 
 const NavLinks = (props) => {
   const location = useLocation();
@@ -12,14 +11,15 @@ const NavLinks = (props) => {
   // console.log("pathname", location.pathname);
   // console.log("search", location.search);
 
- 
   return (
     <ul className="nav-links">
       <li>
         <NavLink to={`/assignment`}>My Assignments</NavLink>
       </li>
       <li>
-        <NavLink to="#chatraChatExpanded" onClick={Chatra('expandWidget')}>Chat with Mentor</NavLink>
+        <NavLink to="#chatraChatExpanded" onClick={Chatra("expandWidget")}>
+          Chat with Mentor
+        </NavLink>
       </li>
       <li>
         <NavLink to="#">
