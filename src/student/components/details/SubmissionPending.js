@@ -120,6 +120,10 @@ const SubmissionPending = (props) => {
   async function uploadFile() {
     let formData = new FormData();
 
+    if (files.length === 0 && links.length === 0 && text.trim().length === 0) {
+      return window.alert("You cannot submit empty submission!!");
+    }
+
     // const aid = 123;
     const file_aid = 123,
       link_aid = 456,
@@ -671,7 +675,9 @@ const SubmissionPending = (props) => {
                   type="submit"
                   className="submit-solution"
                   disabled={
-                    files.length === 0 && text === null && links.length === 0
+                    files.length === 0 &&
+                    text.trim().length === 0 &&
+                    links.length === 0
                       ? true
                       : false
                   }
