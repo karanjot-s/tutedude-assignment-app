@@ -614,7 +614,7 @@ const SubmissionPending = (props) => {
           <div>
             <h3>Submit Solution as</h3>
             <div className="formButtons">
-              <div>
+              <div className="left">
                 <button
                   className="attach-text"
                   onClick={(event) => {

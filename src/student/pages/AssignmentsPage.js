@@ -4,7 +4,7 @@ import $ from "jquery";
 import AssignmentList from "../components/AssignmentList";
 import GlobalState from "../../contexts/GlobalState";
 import "./AssignmentPage.css";
-import getData from "../../temp/testData";
+import { getData } from "../../temp/testData";
 import NavLinks from "../../shared/components/Navigation/NavLinks";
 import MainNavigation from "../../shared/components/Navigation/MainNavigation";
 
@@ -270,10 +270,10 @@ const AssignmestsPage = () => {
             })
             .catch((err) => {
               console.log(err);
+            })
+            .finally(() => {
+              setAssignments(getData().data);
             });
-          // .finally(() => {
-          //   setAssignments(getData().data);
-          // });
         }
       }
     }, // eslint-disable-next-line

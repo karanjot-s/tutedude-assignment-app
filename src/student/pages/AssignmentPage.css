@@ -2,8 +2,9 @@
   display: flex;
   font-size: 1.3rem;
   font-weight: 600;
-  border: 0.1rem #431943 solid;
+  border: 0.1rem transparent solid;
   border-radius: 1.5rem;
+  background-color: #f2e9f2;
   height: 4rem;
   align-items: center;
 }
@@ -16,7 +17,7 @@
 
 .Assignments h1,
 .Assignment-head span {
-  color: #800080;
+  color: #431943;
 }
 .Assignment-head span {
   color: #431943;
