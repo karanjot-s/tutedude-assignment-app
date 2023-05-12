@@ -270,10 +270,10 @@ const AssignmestsPage = () => {
             })
             .catch((err) => {
               console.log(err);
-            })
-            .finally(() => {
-              setAssignments(getData().data);
             });
+          // .finally(() => {
+          //   setAssignments(getData().data);
+          // });
         }
       }
     }, // eslint-disable-next-line
