@@ -15,7 +15,6 @@
 .ques-item {
   position: relative;
   border-radius: 1.5rem;
-  /* background-color: #d9d9d9; */
   width: 26rem;
   height: 5rem;
   margin-bottom: 1rem;
@@ -24,6 +23,23 @@
   padding: 1rem;
   transition: all 0.5s;
 }
+
+.ques-item.pending,
+.ques-item.resubmit {
+  background-color: #fdddda;
+  color: #431943;
+}
+
+.ques-item.submitted {
+  background-color: #ffdfc2;
+  color: #431943;
+}
+
+.ques-item.completed {
+  background-color: #e5fceb;
+  color: #431943;
+}
+
 .ques-item span:nth-of-type(1) {
   width: 10%;
   display: flex;
@@ -35,16 +51,43 @@
   display: flex;
   justify-content: center;
 }
+
+.ques-item.pending span:nth-of-type(2),
+.ques-item.resubmit span:nth-of-type(2) {
+  color: #f23221;
+}
+
+.ques-item.submitted span:nth-of-type(2) {
+  color: #ff8e25;
+}
+
+.ques-item.completed span:nth-of-type(2) {
+  color: #0f992e;
+}
+
 .ques-item button {
   width: 20%;
   display: flex;
   justify-content: flex-start;
-  color: inherit;
+  color: #800080;
+  align-items: center;
 }
-.opened {
-  background-color: #bababa;
+
+.ques-item button svg {
+  transform: rotate(0) !important;
+}
+.ques-item.opened {
+  background-color: #800080 !important;
   /* width: 28rem; */
   /* border-radius: 1.5rem 0 0 1.5rem; */
+  color: white;
+}
+
+.ques-item.opened button {
+  color: white;
+}
+
+.ques-item.opened span:nth-of-type(2) {
   color: white;
 }
 /* .opened::after {
@@ -70,7 +113,10 @@
   position: relative;
 }
 .ques-details h3 {
-  color: #282828;
+  color: #431943;
+}
+.ques-details button svg {
+  fill: #431943;
 }
 h3 span {
   font-weight: 400;
@@ -127,7 +173,8 @@ h3 span {
 
 .ques-details button,
 .button-flex button {
-  background-color: #bababa;
+  background-color: #800080;
+  color: white;
   border: none;
   border-radius: 1.2rem;
   padding: 1rem;
@@ -163,7 +210,7 @@ h3 span {
   /* max-height: 10rem; */
   /* overflow-y: scroll; */
   padding: 1rem;
-  background-color: #f5f5f5;
+  background-color: #fff3f3;
   color: #979797;
   text-align: center;
   display: flex;
@@ -194,7 +241,7 @@ h3 span {
   gap: 1rem;
 }
 .formButtons button {
-  color: #656565 !important;
+  color: rgba(255, 255, 255, 0.8) !important;
   display: flex;
   flex-direction: column;
   font-size: 0.8rem;
@@ -203,9 +250,14 @@ h3 span {
   margin-top: 0;
   padding: 1rem 1.2rem 0.5rem;
 }
+
+.formButtons .left button {
+  background-color: #f2e6f2;
+  color: #800080 !important;
+}
 .formButtons button svg {
   height: 1.2rem;
-  fill: #656565;
+  fill: #800080;
 }
 .submit-solution {
   padding: 1rem 3rem !important;
@@ -232,6 +284,10 @@ h3 span {
 .white-area a {
   /* width: 1.2rem; */
   height: 1.2rem;
+}
+.white-area a svg,
+.white-area span svg {
+  fill: #431943;
 }
 .edit-button,
 .delete-button {

@@ -1,5 +1,5 @@
 .ass-item {
-  border: 0.1rem solid black;
+  border: 0.15rem solid transparent;
   border-radius: 1.5rem;
   transition: all 0.5s;
   margin-top: 1.2rem;
@@ -9,9 +9,23 @@
   display: flex;
   align-items: center;
   font-size: 1.2rem;
+  color: #431943;
   /* justify-content: space-around; */
 
   transition: all 0.5s;
+}
+.ass-item.pending {
+  background-color: #fdddda;
+}
+.ass-item.completed {
+  background-color: #e5fceb;
+}
+.ass-item.partial {
+  background-color: #ffdfc2;
+}
+.ass-item.opened {
+  background-color: transparent;
+  border-color: #800080;
 }
 .no {
   width: 10%;
@@ -29,14 +43,34 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #d9d7d7;
+  /* background-color: #d9d7d7; */
+  /* background-color: #fff3f3; */
   height: 2.8rem;
+}
+.ass-item.pending .status {
+  color: #f23221;
+}
+.ass-item.completed .status {
+  color: #0f992e;
+}
+.ass-item.partial .status {
+  color: #ff8e25;
 }
 .action-button {
   background: none;
   border: none;
+  color: #800080;
   font-size: 1.2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
 }
+
+.ass-item.opened .action-button svg {
+  transform: rotate(180deg);
+}
+
 .progress {
   display: flex;
   align-items: center;
@@ -48,13 +82,13 @@
   display: flex;
   height: 1.5rem;
   width: 9rem;
-  background-color: #d9d9d9;
+  background-color: #fff;
   border-radius: 1rem;
 }
 .progress-bar div {
   height: 1.5rem;
   /* width: 60%; */
-  background-color: #656565;
+  background-color: #250e25;
   border-radius: 1rem;
   text-align: right;
   padding-right: 0.2rem;

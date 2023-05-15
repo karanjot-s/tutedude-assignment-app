@@ -136,21 +136,21 @@ const UpdateSubmission = (props) => {
     //   console.log(key[1]);
     // }
     const url = process.env.REACT_APP_API_URL;
-    // let a = await fetch(url + submit, {
-    //   method: "PUT",
-    //   body: formData,
-    // })
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     console.log("data");
-    //     console.log(data);
-    //     if (data.success === true) {
-    //       setSubmit(true);
-    //       props.sendData(data);
-    //     } else {
-    //       openModal();
-    //     }
-    //   });
+    let a = await fetch(url + submit, {
+      method: "PUT",
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("data");
+        console.log(data);
+        if (data.success === true) {
+          setSubmit(true);
+          props.sendData(data);
+        } else {
+          openModal();
+        }
+      });
   }
 
   async function getLinks(links) {
@@ -495,6 +495,85 @@ const UpdateSubmission = (props) => {
                 <p>{question.instructions}</p>
               </div>
             )}
+            {question !== null &&
+              (question.filename.length > 0 || question.link.length > 0) && (
+                <div className="white-area">
+                  {question !== null && question.filename && (
+                    <>
+                      {question.filename.map((fname, index) => (
+                        <React.Fragment key={index}>
+                          <div className="white-area-element">
+                            {fname.includes(".png") ||
+                            fname.includes(".svg") ||
+                            fname.includes(".jpg") ||
+                            fname.includes("jpeg") ||
+                            fname.includes(".gif") ? (
+                              <img
+                                style={{
+                                  width: "90%",
+                                  borderRadius: "20px",
+                                  marginBottom: "1rem",
+                                }}
+                                alt={fname}
+                                src={
+                                  process.env.REACT_APP_FILE_PREFIX +
+                                  question.filelink[index]
+                                }
+                              />
+                            ) : (
+                              <>
+                                <span>{fname}</span>
+                                <section>
+                                  <a
+                                    href={question.filelink[index]}
+                                    target="_blank"
+                                  >
+                                    <svg
+                                      xmlns="http://www.w3.org/2000/svg"
+                                      width="24"
+                                      height="24"
+                                      viewBox="0 0 24 24"
+                                    >
+                                      <path d="M12 21l-8-9h6v-12h4v12h6l-8 9zm9-1v2h-18v-2h-2v4h22v-4h-2z" />
+                                    </svg>
+                                  </a>
+                                </section>
+                              </>
+                            )}
+                          </div>
+                        </React.Fragment>
+                      ))}
+                    </>
+                  )}
+                  {question !== null && question.link && (
+                    <>
+                      {question.link.map((l, index) => (
+                        <React.Fragment key={index}>
+                          <div className="white-area-element">
+                            <span>
+                              {question.linkText[index].length > 30
+                                ? question.linkText[index].slice(0, 30) + "..."
+                                : question.linkText[index]}
+                            </span>
+                            <section>
+                              <a href={l}>
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="24"
+                                  height="24"
+                                  viewBox="0 0 24 24"
+                                >
+                                  <path d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z" />
+                                </svg>
+                              </a>
+                            </section>
+                          </div>
+                        </React.Fragment>
+                      ))}
+                    </>
+                  )}
+                </div>
+              )}
           </div>
           {question.status === "submitted" && (
             <div className="flex-column">
@@ -730,7 +809,7 @@ const UpdateSubmission = (props) => {
                 </button>
               </form> */}
               {(question.status === "completed" ||
-                question.submissions.length > 1) && (
+                (question.submissions && question.submissions.length > 1)) && (
                 <div className="center">
                   <button onClick={viewSolutionButtonHandler}>
                     View Previous Solution

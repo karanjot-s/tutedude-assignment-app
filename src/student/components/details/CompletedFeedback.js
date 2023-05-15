@@ -12,13 +12,13 @@ const CompletedFeedback = ({ data }) => {
           <div className={styles.link_cont}>
             <h6>Message</h6>
             <hr />
-            <div className={styles.msg}>{data.text}</div>
+            <div className={styles.msg}>{data.review.text}</div>
           </div>
         ) : (
           ""
         )}
 
-        {data && data.review.linkText ? (
+        {data && data.review && data.review.linkText ? (
           <div>
             <h6>Links</h6>
             <hr />
@@ -27,7 +27,7 @@ const CompletedFeedback = ({ data }) => {
                 <a
                   key={ind}
                   className={styles.link}
-                  href={data.link[ind]}
+                  href={data.review.link[ind]}
                   target="_blank"
                   rel="noreferrer"
                 >
@@ -40,17 +40,17 @@ const CompletedFeedback = ({ data }) => {
           ""
         )}
 
-        {data.filename.length > 0 ? (
+        {data.review.filename.length > 0 ? (
           <div>
             <h6>Files</h6>
             <hr />
             <div className={styles.link_cont}>
-              {data.filename.map((file, ind) => (
+              {data.review.filename.map((file, ind) => (
                 <div
                   key={ind}
                   className={styles.file}
                   onClick={() => {
-                    window.open(data.filelink[ind], "_blank");
+                    window.open(data.review.filelink[ind], "_blank");
                   }}
                 >
                   {file.includes(".png") ||

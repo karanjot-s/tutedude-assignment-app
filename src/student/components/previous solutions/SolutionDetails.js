@@ -35,9 +35,12 @@ const SolutionDetails = (props) => {
     setIsOpen(false);
   }
 
-  let sub;
-  if (solution) sub = solution;
-  else sub = null;
+  let sub, status;
+  if (question.status) status = question.status;
+  if (solution) {
+    sub = solution;
+    console.log("solution in SolutionDetail", solution);
+  } else sub = null;
   if (question.submissions) {
     var dateObj = new Date(sub.updatedAt);
     var month = dateObj.getUTCMonth(); //months from 0-11
@@ -211,7 +214,9 @@ const SolutionDetails = (props) => {
             {" "}
             {view === "Feedback View" ? "Solution View" : "Feedback View"}
           </button>
-          <button onClick={changeToSubPending}>Re-submit</button>
+          {(status === "resubmit" || status === "completed") && (
+            <button onClick={changeToSubPending}>Re-submit</button>
+          )}
         </div>
       </div>
     </React.Fragment>

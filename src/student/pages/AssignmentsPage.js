@@ -4,7 +4,9 @@ import $ from "jquery";
 import AssignmentList from "../components/AssignmentList";
 import GlobalState from "../../contexts/GlobalState";
 import "./AssignmentPage.css";
-import getData from "../../temp/testData";
+import { getData } from "../../temp/testData";
+import NavLinks from "../../shared/components/Navigation/NavLinks";
+import MainNavigation from "../../shared/components/Navigation/MainNavigation";
 
 const AssignmestsPage = () => {
   const [ids, setIds] = useContext(GlobalState);
@@ -220,6 +222,7 @@ const AssignmestsPage = () => {
   const [assignments, setAssignments] = useState([]);
   useEffect(
     () => {
+      console.log("ids in useEffect = ", ids);
       if (ids.subject_id !== null && ids.student_id !== null) {
         // $.ajax({
         //   url: `${url}/assignment/view?subject_id=${ids.subject_id}&student_id=${ids.student_id}`,
@@ -244,31 +247,34 @@ const AssignmestsPage = () => {
         //     setLoading(!isLoading);
         //   }
         // });
-        fetch(
-          `${url}/assignment/view?subject_id=${ids.subject_id}&student_id=${ids.student_id}`,
-          {
-            method: "GET",
-            // mode: "no-cors",
-          }
-        )
-          .then((res) => {
-            console.log(res);
-            return res.json();
-          })
-          .then((data) => {
-            console.log(data);
-            setAssignments(data.data);
-            const el = document.querySelector(".loader-container");
-            if (el) {
-              setLoading(!isLoading);
+        if (ids.subject_id && ids.student_id) {
+          fetch(
+            `${url}/assignment/view?subject_id=${ids.subject_id}&student_id=${ids.student_id}`,
+            {
+              method: "GET",
+              // mode: "no-cors",
             }
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-        // .finally(() => {
-        //   setAssignments(getData().data);
-        // });
+          )
+            .then((res) => {
+              console.log(res);
+              return res.json();
+            })
+            .then((data) => {
+              console.log(data);
+              setAssignments(data.data);
+
+              const el = document.querySelector(".loader-container");
+              if (el) {
+                setLoading(!isLoading);
+              }
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+          // .finally(() => {
+          //   setAssignments(getData().data);
+          // });
+        }
       }
     }, // eslint-disable-next-line
     []
@@ -367,13 +373,15 @@ const AssignmestsPage = () => {
   console.log("ass page rendered");
   return (
     <div>
+      <MainNavigation></MainNavigation>
       {isLoading ? (
         <div className="loader-container">
           <div className="loader"></div>
         </div>
       ) : (
         <div className="Assignments">
-          <h1>Course Name</h1>
+          {/* <h1>Course Name</h1> */}
+          {/* <spacer type="vertical" height="70" width="70">&nbsp;</spacer> */}
           <div className="Assignment-head">
             <span>Sr. No.</span>
             <span>Assignments</span>

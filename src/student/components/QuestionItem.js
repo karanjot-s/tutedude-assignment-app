@@ -33,13 +33,29 @@ const QuestionSection = (props) => {
 
   return (
     <div>
-      <div className={`ques-item ${view === "viewing" ? "opened" : ""}`}>
+      <div
+        className={`ques-item ${question.status} ${
+          view === "viewing" ? "opened" : ""
+        }`}
+      >
         {/* {view === "viewing" && (<div className="rounds"><div></div></div>)} */}
         <span>Q{question.question_no}</span>
         <span>{status}</span>
         {/* <Link to={`/question/${question.question_no}`}> */}
         <button className="action-button" onClick={changeView}>
-          {view}→
+          {view}
+          <svg
+            width="12"
+            height="8"
+            viewBox="0 0 12 8"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M10.59 0.589844L6 5.16984L1.41 0.589844L0 1.99984L6 7.99984L12 1.99984L10.59 0.589844Z"
+              fill="#800080"
+            />
+          </svg>
         </button>
         {/* </Link> */}
       </div>

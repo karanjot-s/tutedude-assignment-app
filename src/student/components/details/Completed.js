@@ -40,9 +40,13 @@ const Completed = (props) => {
   //   question = props.question;
   //   console.log("useEffect ran");
   // }, []);
-  let sub;
+  let sub, status;
   if (question.submissions)
+  {
+    status = question.status;
+    console.log("status...",status);
     sub = question.submissions[question.submissions.length - 1];
+  }
   else sub = null;
 
   console.log("rendered completedsec" + question.question_no + "  " + resubmit);
@@ -179,7 +183,12 @@ const Completed = (props) => {
               ? "View Your Solution"
               : "Mentor's Feedback"}
           </button>
-          <button onClick={changeToSubPending}>Re-submit</button>
+          {
+            (status==="resubmit" || status==="completed") && (
+              <button onClick={changeToSubPending}>Re-submit</button>
+            )
+          }
+          {/* <button onClick={changeToSubPending}>Re-submit</button> */}
         </div>
       </div>
       {/* )} */}

@@ -1,3 +1,7 @@
 .logo {
   width: 9rem;
 }
+
+.main-header nav {
+  height: 100%;
+}

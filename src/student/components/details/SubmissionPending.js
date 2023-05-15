@@ -120,6 +120,10 @@ const SubmissionPending = (props) => {
   async function uploadFile() {
     let formData = new FormData();
 
+    if (files.length === 0 && links.length === 0 && text.trim().length === 0) {
+      return window.alert("You cannot submit empty submission!!");
+    }
+
     // const aid = 123;
     const file_aid = 123,
       link_aid = 456,
@@ -358,6 +362,85 @@ const SubmissionPending = (props) => {
                 <p>{question.instructions}</p>
               </div>
             )}
+            {question !== null &&
+              (question.filename.length > 0 || question.link.length > 0) && (
+                <div className="white-area">
+                  {question !== null && question.filename && (
+                    <>
+                      {question.filename.map((fname, index) => (
+                        <React.Fragment key={index}>
+                          <div className="white-area-element">
+                            {fname.includes(".png") ||
+                            fname.includes(".svg") ||
+                            fname.includes(".jpg") ||
+                            fname.includes("jpeg") ||
+                            fname.includes(".gif") ? (
+                              <img
+                                style={{
+                                  width: "90%",
+                                  borderRadius: "20px",
+                                  marginBottom: "1rem",
+                                }}
+                                alt={fname}
+                                src={
+                                  process.env.REACT_APP_FILE_PREFIX +
+                                  question.filelink[index]
+                                }
+                              />
+                            ) : (
+                              <>
+                                <span>{fname}</span>
+                                <section>
+                                  <a
+                                    href={question.filelink[index]}
+                                    target="_blank"
+                                  >
+                                    <svg
+                                      xmlns="http://www.w3.org/2000/svg"
+                                      width="24"
+                                      height="24"
+                                      viewBox="0 0 24 24"
+                                    >
+                                      <path d="M12 21l-8-9h6v-12h4v12h6l-8 9zm9-1v2h-18v-2h-2v4h22v-4h-2z" />
+                                    </svg>
+                                  </a>
+                                </section>
+                              </>
+                            )}
+                          </div>
+                        </React.Fragment>
+                      ))}
+                    </>
+                  )}
+                  {question !== null && question.link && (
+                    <>
+                      {question.link.map((l, index) => (
+                        <React.Fragment key={index}>
+                          <div className="white-area-element">
+                            <span>
+                              {question.linkText[index].length > 30
+                                ? question.linkText[index].slice(0, 30) + "..."
+                                : question.linkText[index]}
+                            </span>
+                            <section>
+                              <a href={l}>
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="24"
+                                  height="24"
+                                  viewBox="0 0 24 24"
+                                >
+                                  <path d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z" />
+                                </svg>
+                              </a>
+                            </section>
+                          </div>
+                        </React.Fragment>
+                      ))}
+                    </>
+                  )}
+                </div>
+              )}
             {(question.status === "completed" ||
               question.status === "resubmit" ||
               (question.submissions && question.submissions.length > 1)) && (
@@ -382,7 +465,7 @@ const SubmissionPending = (props) => {
                           <span>{fname}</span>
                           <section>
                             <a
-                              href={`https://do4t98vdpdesj.cloudfront.net/${sub.filelink[index]}`}
+                              href={`https://do4t98vdpdesj.cloudfront.net/${question.filelink[index]}`}
                               target="_blank"
                               rel="noreferrer"
                             >
@@ -403,7 +486,7 @@ const SubmissionPending = (props) => {
                                 setDeleteFile((prev) => ({
                                   ...prev,
                                   fname: fname,
-                                  flink: sub.filelink[index],
+                                  flink: question.filelink[index],
                                   index: index,
                                 }));
                                 setDeleteType("file");
@@ -521,6 +604,7 @@ const SubmissionPending = (props) => {
                   </>
                 )}
               </div>
+
               <p>
                 <strong>Note:</strong>the file has been submitted Successfully
               </p>
@@ -530,7 +614,7 @@ const SubmissionPending = (props) => {
           <div>
             <h3>Submit Solution as</h3>
             <div className="formButtons">
-              <div>
+              <div className="left">
                 <button
                   className="attach-text"
                   onClick={(event) => {
@@ -591,7 +675,9 @@ const SubmissionPending = (props) => {
                   type="submit"
                   className="submit-solution"
                   disabled={
-                    files.length === 0 && text === null && links.length === 0
+                    files.length === 0 &&
+                    text.trim().length === 0 &&
+                    links.length === 0
                       ? true
                       : false
                   }
